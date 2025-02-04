@@ -24,15 +24,22 @@
 
 /* Imagen del logo */
 .logo {
-    width: 80%; /* Se ajusta automáticamente */
-    max-width: 400px; /* Máximo en pantallas grandes */
+    width: 50%; /* Ajuste automático para pantallas grandes */
+    max-width: 500px; /* Tamaño máximo */
+    min-width: 300px; /* No permite que sea muy pequeño */
 }
+/* Ajustes específicos para pantallas grandes */
+@media (min-width: 1024px) {
+    .logo {
+        width: 40%;
+        max-width: 600px;
+    }
 
 /* Ajustes para pantallas pequeñas */
 @media (max-width: 600px) {
     .logo {
-        width: 100%; /* Hace que el logo se vea grande en celulares */
-        max-width: 300px; /* Límite para evitar que sea demasiado grande */
+        width: 80%; /* Hace que el logo se vea grande en celulares */
+        max-width: 350px; /* Límite para evitar que sea demasiado grande */
     }
         }
         .server-ip {
