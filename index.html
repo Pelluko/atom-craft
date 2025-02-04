@@ -7,57 +7,63 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: url('https://github.com/Pelluko/atom-craft/blob/main/p01KGj0.png?raw=true') no-repeat center center fixed;
+            background: url('https://raw.githubusercontent.com/Pelluko/atom-craft/main/p01KGj0.png') no-repeat center center fixed;
             background-size: cover;
             color: white;
             text-align: center;
             padding: 20px;
         }
-/* Contenedor del logo */
-.logo-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: 50px; /* Aumenta la separación con la IP */
-}
 
-/* Imagen del logo */
-.logo {
-    width: 50%; /* Ajuste automático para pantallas grandes */
-    max-width: 500px; /* Tamaño máximo */
-    min-width: 300px; /* No permite que sea muy pequeño */
-}
-/* Ajustes específicos para pantallas grandes */
-@media (min-width: 1024px) {
-    .logo {
-        width: 40%;
-        max-width: 600px;
-    }
-
-/* Ajustes para pantallas pequeñas */
-@media (max-width: 600px) {
-    .logo {
-        width: 80%; /* Hace que el logo se vea grande en celulares */
-        max-width: 350px; /* Límite para evitar que sea demasiado grande */
-    }
+        /* Contenedor del logo */
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 50px;
         }
+
+        /* Imagen del logo */
+        .logo {
+            width: 50%;
+            max-width: 500px;
+            min-width: 300px;
+        }
+
+        /* Ajustes específicos para pantallas grandes */
+        @media (min-width: 1024px) {
+            .logo {
+                width: 40%;
+                max-width: 600px;
+            }
+        }
+
+        /* Ajustes para pantallas pequeñas */
+        @media (max-width: 600px) {
+            .logo {
+                width: 80%;
+                max-width: 350px;
+            }
+        }
+
         .server-ip {
             background: rgba(0, 0, 0, 0.7);
             display: inline-block;
             padding: 10px 20px;
             font-size: 1.5rem;
             border-radius: 10px;
-            margin-top: 300px; /* Aumenta la separación del logo */
+            margin-top: 30px;
         }
+
         .rules, .social {
             background: rgba(0, 0, 0, 0.6);
             padding: 15px;
             margin: 10px auto;
             width: 80%;
-            border-radius: 10px; 
+            border-radius: 10px;
         }
+
         a {
             color: #00ff00;
             text-decoration: none;
@@ -68,7 +74,7 @@
 <body>
 
     <!-- Imagen como título -->
-    <img src="https://github.com/Pelluko/atom-craft/blob/main/Logo-Principal.png?raw=true" alt="Atom-Craft Logo" class="logo">
+    <img src="https://raw.githubusercontent.com/Pelluko/atom-craft/main/Logo-Principal.png" alt="Atom-Craft Logo" class="logo">
 
     <div class="server-ip">
         🌎 IP del servidor: <b>atomcraft.papu.host</b>
