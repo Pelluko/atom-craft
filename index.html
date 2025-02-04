@@ -13,11 +13,27 @@
             text-align: center;
             padding: 20px;
         }
-        .logo {
-            display: block;
-            margin: 20px auto;
-            width: 60%; /* Ajusta el tamaño */
-            max-width: 500px; /* Tamaño máximo */
+/* Contenedor del logo */
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+/* Imagen del logo */
+.logo {
+    width: 80%; /* Se ajusta automáticamente */
+    max-width: 400px; /* Máximo en pantallas grandes */
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 600px) {
+    .logo {
+        width: 100%; /* Hace que el logo se vea grande en celulares */
+        max-width: 300px; /* Límite para evitar que sea demasiado grande */
+    }
         }
         .server-ip {
             background: rgba(0, 0, 0, 0.7);
