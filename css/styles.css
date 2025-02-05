@@ -193,6 +193,10 @@ a:hover {
 }
 
 
+/* Asegura que el contenedor superior tenga margen abajo */
+.server-info {
+    margin-bottom: 20px; /* Aumenta este valor si necesitas más separación */
+
 
 /* Estilos para el cuadro de bienvenida */
 .welcome-box {
