@@ -23,8 +23,25 @@ nav a {
     display: inline-block;
     font-size: 1.2rem;
     text-align: center;
+    width: 80%;
+    max-width: 500px;
+    margin: auto;
 }
 
-.server-status p {
-    margin: 10px 0;
+/* Lista de jugadores conectados */
+#player-list-container {
+    margin-top: 10px;
+    display: none; /* Ocultar si no hay jugadores */
+}
+
+#player-list {
+    list-style: none;
+    padding: 0;
+}
+
+#player-list li {
+    background: rgba(255, 255, 255, 0.1);
+    margin: 5px 0;
+    padding: 5px;
+    border-radius: 5px;
 }
