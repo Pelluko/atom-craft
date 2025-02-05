@@ -191,3 +191,40 @@ a:hover {
         width: 95%;
     }
 }
+
+
+
+/* Estilos para el cuadro de bienvenida */
+.welcome-box {
+    background: rgba(0, 0, 0, 0.7); /* Fondo semi-transparente */
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 80%;
+    max-width: 800px;
+    margin: auto;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+/* Estilo para el título de bienvenida */
+.welcome-box h2 {
+    color: #FFD700; /* Dorado */
+    font-size: 1.8rem;
+    text-shadow: 2px 2px 5px rgba(255, 215, 0, 0.5);
+}
+
+/* Estilo para el texto de bienvenida */
+.welcome-text {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+/* Estilo para las reglas del servidor */
+.server-rules {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #ff4444; /* Rojo brillante */
+}
+
