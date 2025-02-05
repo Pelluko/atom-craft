@@ -7,13 +7,71 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <h1>Contacto</h1>
-    <nav>
+        <nav>
         <a href="index.html">Inicio</a> |
         <a href="vip.html">Vip</a> |
         <a href="servidor.html">Status</a> |
         <a href="contacto.html">Contacto</a>
     </nav>
+
+    <!-- Imagen como título -->
+    <div class="logo-container">
+        <img src="https://raw.githubusercontent.com/Pelluko/atom-craft/main/img/Logo-Principal.png" alt="Atom-Craft Logo" class="logo">
+    </div>
+
+        <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('https://raw.githubusercontent.com/Pelluko/atom-craft/main/p01KGj0.png') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Contenedor del logo */
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 30px; /* Más espacio debajo del logo */
+        }
+
+        /* Imagen del logo */
+        .logo {
+            width: 50%;
+            max-width: 500px;
+            min-width: 300px;
+        }
+
+        /* Ajustes específicos para pantallas grandes */
+        @media (min-width: 1024px) {
+            .logo {
+                width: 40%;
+                max-width: 600px;
+            }
+        }
+
+        /* Ajustes para pantallas pequeñas */
+        @media (max-width: 600px) {
+            .logo {
+                width: 80%;
+                max-width: 400px;
+            }
+        }
+
+
+        a {
+            color: #00ff00;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+
+
+    
     <p>📧 Envíanos un correo a <a href="mailto:contacto@atomcraft.com">contacto@atomcraft.com</a></p>
     <p>💬 Únete a nuestro <a href="https://discord.com">Discord</a></p>
 </body>
