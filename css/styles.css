@@ -1,4 +1,4 @@
-/* Estilo general */
+/* Fondo con imagen y filtro oscuro solo en el fondo */
 body {
     font-family: Arial, sans-serif;
     background: url('https://raw.githubusercontent.com/Pelluko/atom-craft/main/p01KGj0.png') 
@@ -11,16 +11,35 @@ body {
     position: relative;
 }
 
-/* Filtro oscuro para mejorar la visibilidad del texto */
+/* Aplicar un filtro oscuro solo en el fondo sin afectar el contenido */
 body::before {
     content: "";
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Ajusta la opacidad si quieres más claridad */
+    background: rgba(0, 0, 0, 0.4); /* Ajusta la opacidad aquí (0.4 = 40%) */
     z-index: -1;
+}
+
+/* Contenedor principal */
+.container {
+    position: relative;
+    z-index: 1; /* Asegura que el contenido esté por encima del filtro */
+}
+
+/* Tarjetas y secciones con fondo semi-transparente */
+.section {
+    background: rgba(0, 0, 0, 0.7); /* Ajusta la transparencia aquí */
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    width: 80%;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
 }
 
 /* Barra de navegación */
@@ -146,7 +165,18 @@ nav a:hover {
     transform: scale(1.08);
 }
 
-/* Diseño responsive para pantallas pequeñas */
+/* Mejoramos los enlaces */
+a {
+    color: #FFD700;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #ffae00;
+    text-shadow: 0 0 5px #FFD700;
+}
+
+/* Diseño responsive */
 @media screen and (max-width: 768px) {
     .vip-container {
         flex-direction: column;
@@ -155,5 +185,9 @@ nav a:hover {
 
     .vip-card {
         width: 90%;
+    }
+
+    .section {
+        width: 95%;
     }
 }
