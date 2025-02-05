@@ -17,7 +17,22 @@ async function obtenerEstadoServidor() {
             if (datos.players.list && datos.players.list.length > 0) {
                 datos.players.list.forEach(player => {
                     let li = document.createElement("li");
-                    li.textContent = `👤 ${player}`;
+
+                    // Imagen de la skin del jugador
+                    let img = document.createElement("img");
+                    img.src = `https://minotar.net/avatar/${player}/32.png`; // 32px de tamaño
+                    img.alt = `Skin de ${player}`;
+                    img.classList.add("player-avatar"); // Añadir clase para estilos
+
+                    // Nombre del jugador
+                    let span = document.createElement("span");
+                    span.textContent = ` ${player}`;
+
+                    // Agregar la imagen y el nombre al <li>
+                    li.appendChild(img);
+                    li.appendChild(span);
+
+                    // Agregar el elemento a la lista
                     playerList.appendChild(li);
                 });
                 playerListContainer.style.display = "block"; // Mostrar la lista
