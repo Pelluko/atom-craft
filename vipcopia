@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tienda VIP - AtomCraft</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/Pelluko/atom-craft/main/favicon.ico">
 </head>
 <body>
         <nav>
@@ -77,9 +78,23 @@
 
     <h2>🎖 Rangos VIP</h2>
 
+    
     <div class="vip-container">
         <div class="vip-card">
-            <h3>🔥 Vip-Iron</h3>
+            <h3>🪵 Vip-Coal</h3>
+            <p><strong>Duración:</strong> 20 días</p>
+            <p><strong>Precio:</strong> <span class="price">$3 USD</span> (Promo: $1 USD)</p>
+            <ul>
+                <li>🌎 Comandos exclusivos: /home, /back, /enderchest</li>
+                <li>💰 $6.000 de money</li>
+                <li>🛒 30 Tiendas de cofres</li>
+                <li>🔑 1 Mystery Key Premium</li>
+            </ul>
+            <a href="https://www.paypal.com/paypalme/TU_CUENTA_PAYPAL/3USD" target="_blank" class="buy-button">Comprar Ahora</a>
+        </div>
+    
+        <div class="vip-card">
+            <h3>🪨 Vip-Iron</h3>
             <p><strong>Duración:</strong> 20 días</p>
             <p><strong>Precio:</strong> <span class="price">$3 USD</span> (Promo: $1 USD)</p>
             <ul>
@@ -92,7 +107,7 @@
         </div>
 
         <div class="vip-card">
-            <h3>⚡ Vip-Gold</h3>
+            <h3>🌕 Vip-Gold</h3>
             <p><strong>Duración:</strong> 1 Mes (31 días)</p>
             <p><strong>Precio:</strong> <span class="price">$8 USD</span> (Promo: $2.5 USD)</p>
             <ul>
@@ -131,7 +146,7 @@
         </div>
 
         <div class="vip-card">
-            <h3>👑 Vip-Ender</h3>
+            <h3>⚡ Vip-Ender</h3>
             <p><strong>Duración:</strong> 3 Meses</p>
             <p><strong>Precio:</strong> <span class="price">$36 USD</span> (Promo: +1 Mes Extra)</p>
             <ul>
