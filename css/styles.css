@@ -213,8 +213,30 @@ a:hover {
     text-align: center;
     width: 90%;
     max-width: 800px;
-    font-size: 1.5rem;
+    font-size: 1.4rem; /* Ajuste de tamaño */
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    word-wrap: break-word; /* Permite que la IP no se salga del cuadro */
+    overflow-wrap: break-word; /* Asegura que las palabras largas se ajusten */
+}
+
+/* Ajuste del texto de la IP del servidor */
+.server-info h2 {
+    font-size: 1.4rem; /* Disminuir tamaño en móvil */
+    line-height: 1.2; /* Ajustar la altura de línea */
+    word-break: break-word; /* Evita desbordamientos de texto */
+}
+
+/* Ajuste específico para móviles */
+@media screen and (max-width: 600px) {
+    .server-info {
+        font-size: 1.2rem; /* Tamaño de fuente más pequeño */
+        padding: 10px;
+    }
+
+    .server-info h2 {
+        font-size: 1.2rem;
+        word-break: break-word;
+    }
 }
 
 /* Cuadro de bienvenida */
