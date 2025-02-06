@@ -53,3 +53,29 @@ async function obtenerEstadoServidor() {
 // Llamar a la función al cargar la página y refrescar cada 30 segundos
 obtenerEstadoServidor();
 setInterval(obtenerEstadoServidor, 30000);
+
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const ipElement = document.getElementById("ip-servidor");
+    const copyMessage = document.getElementById("copy-message");
+
+    ipElement.addEventListener("click", function () {
+        // Crear un input temporal
+        const tempInput = document.createElement("input");
+        tempInput.value = ipElement.textContent;
+        document.body.appendChild(tempInput);
+        
+        // Seleccionar y copiar el texto
+        tempInput.select();
+        document.execCommand("copy");
+        document.body.removeChild(tempInput);
+
+        // Mostrar mensaje de copiado
+        copyMessage.style.display = "block";
+        setTimeout(() => {
+            copyMessage.style.display = "none";
+        }, 2000);
+    });
+});
