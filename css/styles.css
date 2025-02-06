@@ -335,13 +335,25 @@ a:hover {
 .copy-ip {
     cursor: pointer;
     font-weight: bold;
-    color: #FFD700; /* Dorado */
+    color: #FFD700;
     text-decoration: underline;
     transition: color 0.3s ease;
 }
 
 .copy-ip:hover {
-    color: #ffae00; /* Un dorado más intenso */
+    color: #ffae00;
 }
 
+#copy-message {
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 5px;
+    animation: fadeOut 2s ease-out;
+}
 
+/* Animación para que el mensaje desaparezca suavemente */
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+}
