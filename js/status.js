@@ -61,21 +61,21 @@ document.addEventListener("DOMContentLoaded", function () {
     const ipElement = document.getElementById("ip-servidor");
     const copyMessage = document.getElementById("copy-message");
 
-    ipElement.addEventListener("click", function () {
-        // Crear un input temporal
-        const tempInput = document.createElement("input");
-        tempInput.value = ipElement.textContent;
-        document.body.appendChild(tempInput);
-        
-        // Seleccionar y copiar el texto
-        tempInput.select();
-        document.execCommand("copy");
-        document.body.removeChild(tempInput);
+    if (ipElement) {
+        ipElement.addEventListener("click", function () {
+            const ipText = ipElement.textContent.trim(); // Asegurar que el texto esté bien formateado
 
-        // Mostrar mensaje de copiado
-        copyMessage.style.display = "block";
-        setTimeout(() => {
-            copyMessage.style.display = "none";
-        }, 2000);
-    });
+            // Intentar copiar usando la API moderna del portapapeles
+            navigator.clipboard.writeText(ipText).then(() => {
+                // Mostrar mensaje de copiado
+                copyMessage.style.display = "block";
+                setTimeout(() => {
+                    copyMessage.style.display = "none";
+                }, 2000);
+            }).catch(err => {
+                console.error("Error al copiar la IP:", err);
+            });
+        });
+    }
 });
+
