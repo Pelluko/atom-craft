@@ -381,3 +381,28 @@ a:hover {
     0% { opacity: 1; }
     100% { opacity: 0; }
 }
+
+
+/* Contenedor especial para información de pago */
+.payment-info {
+    background: rgba(34, 34, 85, 0.8); /* Un azul oscuro semi-transparente */
+    padding: 12px;
+    border-radius: 8px;
+    text-align: center;
+    width: 90%;
+    max-width: 600px;
+    margin: 10px auto;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 215, 0, 0.6); /* Un borde dorado sutil */
+}
+
+/* Efecto de hover para destacar el contenedor */
+.payment-info:hover {
+    background: rgba(44, 44, 105, 0.9); /* Azul un poco más claro */
+    border: 2px solid rgba(255, 215, 0, 0.9);
+    transition: 0.3s ease-in-out;
+}
+
