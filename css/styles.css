@@ -330,3 +330,18 @@ a:hover {
     color: #ff4444; /* Rojo brillante */
 }
 
+
+
+.copy-ip {
+    cursor: pointer;
+    font-weight: bold;
+    color: #FFD700; /* Dorado */
+    text-decoration: underline;
+    transition: color 0.3s ease;
+}
+
+.copy-ip:hover {
+    color: #ffae00; /* Un dorado más intenso */
+}
+
+
