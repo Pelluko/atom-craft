@@ -230,25 +230,45 @@ a:hover {
 }
 
 
-/* Contenedor de la información VIP */
-.vip-info {
-    background: rgba(0, 0, 0, 0.7); /* Fondo oscuro semi-transparente */
-    padding: 15px;
-    border-radius: 10px;
-    text-align: center;
-    width: 80%;
-    max-width: 800px;
-    margin: 15px auto;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-}
 
-/* Estilo del texto dentro del contenedor */
-.vip-info p {
+
+/* Estilo del contenedor */
+.vip-info {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(34, 34, 85, 0.9)); /* Efecto de degradado */
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    width: 85%;
+    max-width: 800px;
+    margin: 20px auto;
     color: white;
     font-size: 1.2rem;
     font-weight: bold;
-    margin: 0;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    border: 3px solid rgba(255, 215, 0, 0.7); /* Borde dorado */
 }
+
+/* Título llamativo */
+.vip-info h2 {
+    font-size: 1.6rem;
+    color: #FFD700; /* Dorado */
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+}
+
+/* Beneficios en un color especial */
+.vip-benefits {
+    font-size: 1.3rem;
+    color: #1dbf73; /* Verde llamativo */
+    text-shadow: 0 0 5px rgba(29, 191, 115, 0.6);
+}
+
+/* Efecto hover para que el contenedor destaque */
+.vip-info:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.9);
+    transition: 0.3s ease-in-out;
+}
+
 
 
 
