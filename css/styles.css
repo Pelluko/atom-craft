@@ -78,28 +78,32 @@ nav a:hover {
 #player-list-container {
     margin-top: 10px;
     display: none; /* Se muestra solo si hay jugadores */
-}
-
-#player-list {
-    list-style: none;
-    padding: 0;
-    text-align: left;
     width: 100%;
-    max-width: 400px;
+    max-width: 500px; /* Ajusta el ancho máximo según necesidad */
     margin: auto;
 }
 
+#player-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Dos columnas */
+    gap: 10px; /* Espaciado entre elementos */
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+
+/* Estilo de cada jugador */
 #player-list li {
     display: flex;
     align-items: center;
     background: rgba(255, 255, 255, 0.1);
-    margin: 5px 0;
     padding: 10px;
     border-radius: 8px;
     transition: 0.3s;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: bold;
     color: #ffffff;
+    justify-content: flex-start;
 }
 
 #player-list li:hover {
@@ -117,9 +121,11 @@ nav a:hover {
     box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
     background-color: #222; /* Fondo oscuro en caso de error */
 }
+
 /* Ajustes específicos para móviles */
 @media screen and (max-width: 600px) {
     #player-list {
+        grid-template-columns: 1fr; /* En móviles, solo una columna */
         max-width: 90%;
     }
 
@@ -133,6 +139,9 @@ nav a:hover {
         height: 28px;
     }
 }
+
+
+
 
 /* Contenedor de los rangos VIP */
 .vip-container {
