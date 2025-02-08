@@ -1,5 +1,5 @@
 async function obtenerEstadoServidor() {
-    const url = "https://api.mcsrvstat.us/2/atomcraft.papu.host"; // API original
+    const url = "https://api.mcsrvstat.us/2/atomcraft.papu.host"; // API oficial
 
     try {
         const respuesta = await fetch(url);
