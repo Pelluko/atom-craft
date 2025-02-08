@@ -1,22 +1,13 @@
 async function obtenerEstadoServidor() {
-    const urlAlt = "https://api.minetools.eu/query/atomcraft.papu.host/25565"; // Otra API
     const url = "https://api.mcsrvstat.us/2/atomcraft.papu.host"; // API original
 
     try {
-        // Intentar con la API alternativa primero
-        let respuesta = await fetch(urlAlt);
-        let datos = await respuesta.json();
+        const respuesta = await fetch(url);
+        const datos = await respuesta.json();
 
-        // Si la API alternativa falla o no tiene datos, usar la API original
-        if (!datos || !datos.Players || datos.Players.length === 0) {
-            console.warn("API alternativa no devolvió jugadores, usando la API original...");
-            respuesta = await fetch(url);
-            datos = await respuesta.json();
-        }
-
-        if (datos.online || datos.debug) {
+        if (datos.online) {
             document.getElementById("status").innerHTML = "🟢 Online";
-            document.getElementById("players").innerHTML = `${datos.Players ? datos.Players.length : datos.players.online} / ${datos.players ? datos.players.max : "?"}`;
+            document.getElementById("players").innerHTML = `${datos.players.online} / ${datos.players.max}`;
             document.getElementById("version").innerHTML = datos.version || "Desconocida";
 
             // Mostrar lista de jugadores conectados si existen
@@ -24,10 +15,8 @@ async function obtenerEstadoServidor() {
             const playerList = document.getElementById("player-list");
             playerList.innerHTML = ""; // Limpiar lista anterior
 
-            let jugadores = datos.Players ? datos.Players : datos.players.list;
-
-            if (jugadores && jugadores.length > 0) {
-                jugadores.forEach(player => {
+            if (datos.players.list && datos.players.list.length > 0) {
+                datos.players.list.forEach(player => {
                     let li = document.createElement("li");
 
                     // Imagen de la skin del jugador
@@ -89,5 +78,3 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
-
-
