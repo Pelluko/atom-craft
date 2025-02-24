@@ -282,6 +282,31 @@ a:hover {
 
 
 
+/* Estilo especial para Key Premium */
+.vip-card.key-premium {
+    background: linear-gradient(135deg, #ffcc00, #ffaa00); /* Fondo dorado */
+    border: 3px solid #ff8800; /* Borde más oscuro */
+    color: black; /* Texto negro para mejor contraste */
+    box-shadow: 0 0 15px rgba(255, 165, 0, 0.8);
+}
+
+/* Ajuste para que el botón también tenga más resalte */
+.vip-card.key-premium .buy-button {
+    background: linear-gradient(135deg, #ff8800, #ffcc00);
+    border: 2px solid #ff7700;
+}
+
+.vip-card.key-premium .buy-button:hover {
+    background: linear-gradient(135deg, #ffcc00, #ff8800);
+    box-shadow: 0 6px 20px rgba(255, 140, 0, 0.9);
+}
+
+
+
+
+
+
+
 
 
 /* Contenedor principal para organizar los bloques */
