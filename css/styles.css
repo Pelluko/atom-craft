@@ -284,7 +284,7 @@ a:hover {
 
 /* Estilo especial para Key Premium */
 .vip-card.key-premium {
-    background: linear-gradient(135deg, #ffcc00, #ffaa00); /* Fondo dorado */
+    background: linear-gradient(135deg, #aaffaa, #66cc66); /* Verde claro */
     border: 3px solid #ff8800; /* Borde más oscuro */
     color: black; /* Texto negro para mejor contraste */
     box-shadow: 0 0 15px rgba(255, 165, 0, 0.8);
