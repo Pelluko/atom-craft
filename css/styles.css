@@ -282,24 +282,25 @@ a:hover {
 
 
 
-/* Estilo especial para Key Premium */
+/* Estilo especial para Key Premium en verde translúcido */
 .vip-card.key-premium {
-    background: linear-gradient(135deg, #aaffaa, #66cc66); /* Verde claro */
-    border: 3px solid #ff8800; /* Borde más oscuro */
-    color: black; /* Texto negro para mejor contraste */
-    box-shadow: 0 0 15px rgba(102, 204, 102, 0.8);
+    background: rgba(20, 80, 20, 0.8); /* Verde oscuro translúcido */
+    border: 3px solid rgba(255, 215, 0, 0.8); /* Borde dorado */
+    color: white; /* Texto blanco para contraste */
+    box-shadow: 0 0 15px rgba(34, 139, 34, 0.5); /* Efecto de brillo verde */
 }
 
-/* Ajuste para que el botón también tenga más resalte */
+/* Ajuste para el botón de compra */
 .vip-card.key-premium .buy-button {
-    background: linear-gradient(135deg, #ff8800, #ffcc00);
-    border: 2px solid #ff7700;
+    background: linear-gradient(135deg, #FFD700, #ffae00); /* Botón dorado */
+    border: 2px solid #ffcc00;
 }
 
 .vip-card.key-premium .buy-button:hover {
-    background: linear-gradient(135deg, #ffcc00, #ff8800);
-    box-shadow: 0 6px 20px rgba(255, 140, 0, 0.9);
+    background: linear-gradient(135deg, #ffae00, #FFD700);
+    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.9);
 }
+
 
 
 
