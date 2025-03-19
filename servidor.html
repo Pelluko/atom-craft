@@ -75,16 +75,32 @@
 
       <h1>🌍 Estado del Servidor</h1>
 
-    <div class="server-status">
-        <p><strong>IP:</strong> atomcraft.papu.host</p>
-        <p><strong>Estado:</strong> <span id="status">Cargando...</span></p>
-        <p><strong>Jugadores:</strong> <span id="players">-</span></p>
-        <p><strong>Versión:</strong> <span id="version">-</span></p>
-        <div id="player-list-container">
-            <h3>🧑‍💻 Jugadores Conectados:</h3>
-            <ul id="player-list"></ul>
-        </div>
+<div>
+    <h2>🌍 Servidor Minecraft</h2>
+    <p><strong>IP:</strong> <span id="ip-servidor">atomcraft.papu.host</span> <button id="copy-button">📋 Copiar</button></p>
+    <p id="copy-message" style="display:none;">✅ Copiado al portapapeles</p>
+
+    <p><strong>Estado:</strong> <span id="status">Cargando...</span></p>
+    <p><strong>Jugadores en línea:</strong> <span id="players">Cargando...</span></p>
+    <p><strong>Versión de Minecraft:</strong> <span id="version">Cargando...</span></p>
+
+    <div id="player-list-container" style="display:none;">
+        <h3>👥 Jugadores en línea</h3>
+        <ul id="player-list"></ul>
     </div>
+
+    <h3>📊 Estadísticas del Servidor</h3>
+    <p><strong>Jugadores en 24h:</strong> <span id="players-24h">Cargando...</span></p>
+    <p><strong>Uptime:</strong> <span id="uptime">Cargando...</span></p>
+    <p><strong>TPS:</strong> <span id="tps">Cargando...</span></p>
+    <p id="estado-plan"></p>
+
+    <br>
+    <a href="http://199.127.60.172:20101/server/Atom-Craft/overview" target="_blank">
+        <button>🔍 Ver más estadísticas en PLAN</button>
+    </a>
+</div>
+
 
     <script src="js/status.js"></script>
     
