@@ -1,5 +1,5 @@
 async function obtenerEstadoServidor() {
-    const url = "https://api.mcsrvstat.us/2/atomcraft.papu.host"; 
+    const url = "https://api.mcsrvstat.us/2/atomcraft.papu.host"; // API oficial
 
     try {
         const respuesta = await fetch(url);
@@ -10,28 +10,35 @@ async function obtenerEstadoServidor() {
             document.getElementById("players").innerHTML = `${datos.players.online} / ${datos.players.max}`;
             document.getElementById("version").innerHTML = datos.version || "Desconocida";
 
+            // Mostrar lista de jugadores conectados si existen
+            const playerListContainer = document.getElementById("player-list-container");
             const playerList = document.getElementById("player-list");
-            playerList.innerHTML = "";
+            playerList.innerHTML = ""; // Limpiar lista anterior
 
             if (datos.players.list && datos.players.list.length > 0) {
                 datos.players.list.forEach(player => {
                     let li = document.createElement("li");
 
+                    // Imagen de la skin del jugador
                     let img = document.createElement("img");
-                    img.src = `https://minotar.net/avatar/${player}/32.png`;
+                    img.src = `https://minotar.net/avatar/${player}/32.png`; // 32px de tamaño
                     img.alt = `Skin de ${player}`;
-                    img.classList.add("player-avatar");
+                    img.classList.add("player-avatar"); // Añadir clase para estilos
 
+                    // Nombre del jugador
                     let span = document.createElement("span");
                     span.textContent = ` ${player}`;
 
+                    // Agregar la imagen y el nombre al <li>
                     li.appendChild(img);
                     li.appendChild(span);
+
+                    // Agregar el elemento a la lista
                     playerList.appendChild(li);
                 });
-                document.getElementById("player-list-container").style.display = "block";
+                playerListContainer.style.display = "block"; // Mostrar la lista
             } else {
-                document.getElementById("player-list-container").style.display = "none";
+                playerListContainer.style.display = "none"; // Ocultar si no hay jugadores
             }
         } else {
             document.getElementById("status").innerHTML = "🔴 Offline";
@@ -45,25 +52,9 @@ async function obtenerEstadoServidor() {
     }
 }
 
-// Copiar IP al portapapeles
-document.querySelector(".copy-button").addEventListener("click", function () {
-    navigator.clipboard.writeText(document.getElementById("ip-servidor").textContent.trim()).then(() => {
-        alert("✅ IP copiada al portapapeles!");
-    }).catch(err => {
-        console.error("Error al copiar la IP:", err);
-    });
-});
-
-// Ejecutar funciones
+// Llamar a la función al cargar la página y refrescar cada 30 segundos
 obtenerEstadoServidor();
 setInterval(obtenerEstadoServidor, 30000);
-
-
-
-
-
-
-
 
 // Función para copiar la IP del servidor
 document.addEventListener("DOMContentLoaded", function () {
