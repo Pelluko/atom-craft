@@ -8,7 +8,7 @@
     <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/Pelluko/atom-craft/main/favicon.ico">
 </head>
 <body>
-        <nav>
+    <nav>
         <a href="index.html">Atom</a> |
         <a href="vip.html">Vip</a> |
         <a href="servidor.html">Status</a> |
@@ -20,7 +20,20 @@
         <img src="https://raw.githubusercontent.com/Pelluko/atom-craft/main/img/Logo-Principal.png" alt="Atom-Craft Logo" class="logo">
     </div>
 
-        <style>
+    <!-- Cuadro de votación -->
+    <div class="likes-box">
+        <h2>🗳️ ¡Vota por Atom Craft! 🗳️</h2>
+        <ul>
+            <li><a href="https://minecraft-mp.com/server-s341040" target="_blank">🌐 Votar en Minecraft-MP</a></li>
+            <li><a href="https://mcservidores.com/servidor/1028" target="_blank">🌐 Votar en MCServidores</a></li>
+            <li><a href="https://minecraftservers.org/server/671887" target="_blank">🌐 Votar en MinecraftServers.org</a></li>
+            <li><a href="https://minecraftservers.page/servers/atom-craft" target="_blank">🌐 Votar en MinecraftServers.page</a></li>
+            <li><a href="https://topg.org/minecraft-servers/server-675558" target="_blank">🌐 Votar en TopG</a></li>
+            <li><a href="https://www.40servidoresmc.es/atomcraft" target="_blank">🌐 Votar en 40ServidoresMC</a></li>
+        </ul>
+    </div>
+
+    <style>
         body {
             font-family: Arial, sans-serif;
             background: url('https://raw.githubusercontent.com/Pelluko/atom-craft/main/p01KGj0.png') no-repeat center center fixed;
@@ -63,15 +76,51 @@
             }
         }
 
-
         a {
             color: #00ff00;
             text-decoration: none;
             font-weight: bold;
         }
+
+        /* Estilos del cuadro de votación */
+        .likes-box {
+            max-width: 500px;
+            margin: 40px auto;
+            padding: 25px;
+            background: rgba(0,0,0,0.7);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+        }
+
+        .likes-box h2 {
+            color: #ffcc00;
+            margin-bottom: 20px;
+        }
+
+        .likes-box ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .likes-box ul li {
+            margin: 15px 0;
+        }
+
+        .likes-box ul li a {
+            display: block;
+            padding: 14px;
+            background: #333;
+            color: #fff;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .likes-box ul li a:hover {
+            background: #ff6600;
+            transform: scale(1.05);
+        }
     </style>
-
-
-    
 </body>
 </html>
