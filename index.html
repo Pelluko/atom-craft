@@ -137,6 +137,28 @@
         </div>
 
     </div>
+
+<!-- Contador visible -->
+<div style="font:14px/1.4 system-ui, sans-serif">
+  Visitas a esta página: <span id="visitas">...</span>
+</div>
+
+<script>
+  // Cambia 'atom-craft' y 'vip' por lo que quieras para crear tu propio "namespace" y "key"
+  const NAMESPACE = 'atom-craft';
+  const KEY = 'vip';
+
+  // Incrementa y trae el total en un solo paso
+  fetch(`https://api.countapi.xyz/hit/${NAMESPACE}/${KEY}`)
+    .then(r => r.json())
+    .then(data => {
+      document.getElementById('visitas').textContent = data.value.toLocaleString();
+    })
+    .catch(() => {
+      document.getElementById('visitas').textContent = '—';
+    });
+</script>
+
     
 <script src="js/status.js"></script>
     
