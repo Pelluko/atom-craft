@@ -156,7 +156,7 @@
   }
 
   const out = document.getElementById('visitas');
-  const counter = new Counter({ workspaceSlug: WORKSPACE_SLUG, debug: true });
+  const counter = new Counter({ workspace: 'atom-craft', debug: true });
 
   try {
     const { value } = await counter.up(COUNTER_SLUG);
