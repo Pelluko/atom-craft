@@ -147,22 +147,31 @@
 </div>
 
 <script>
-  // Tu workspace/namespace (puedes dejarlo como 'atom-craft')
-  const NAMESPACE = 'atom-craft';
-  // El slug exacto del contador que creaste
-  const COUNTER = 'vistas';
+  (function() {
+    const WORKSPACE = 'atom-craft';  // tu workspace
+    const SLUG = 'vistas';           // tu contador
+    const WINDOW_MIN = 30;           // ventana de 30 minutos
+    const KEY = `counter:${SLUG}:ts`;
+    const last = Number(localStorage.getItem(KEY) || 0);
+    const now = Date.now();
 
-  // Endpoint público (V1) que incrementa y devuelve el total
-  fetch(`https://api.counterapi.dev/v1/${NAMESPACE}/${COUNTER}/up`)
-    .then(r => r.json())
-    .then(data => {
-      const total = data.count ?? data.value ?? 0;
-      document.getElementById('visitas').textContent = total.toLocaleString();
-    })
-    .catch(() => {
-      document.getElementById('visitas').textContent = '—';
-    });
+    // Si pasaron más de 30 min, usamos /up; si no, solo /get
+    const endpoint = (now - last) > WINDOW_MIN * 60 * 1000 ? 'up' : 'get';
+
+    fetch(`https://api.counterapi.dev/v1/${WORKSPACE}/${SLUG}/${endpoint}`)
+      .then(r => r.json())
+      .then(d => {
+        if (endpoint === 'up') {
+          localStorage.setItem(KEY, String(now));
+        }
+        document.getElementById('visitas').textContent = (d.count ?? d.value ?? 0).toLocaleString();
+      })
+      .catch(() => {
+        document.getElementById('visitas').textContent = '—';
+      });
+  })();
 </script>
+
 
 
 
