@@ -70,32 +70,39 @@ Visitas: <strong id="visitas">...</strong>
 <script>
 document.addEventListener('DOMContentLoaded', async () => {
   const el = document.getElementById('visitas');
-  const counter = new Counter({ workspace: 'atom-craft', debug: true });
+  const counter = new Counter({ workspace: 'atom-craft' });
+  const COUNTER = 'vistas';
+  const KEY = 'vistas:last';
+  const HOUR = 60*60*1000; // 1 hora
 
-  // 1) Suma +1 (para contar la visita actual)
-  try { await counter.up('vistas'); } catch (e) { console.warn('up error', e); }
-
-  // 2) Lee las estadísticas y muestra el mismo número que ves en el panel
-  async function refreshFromStats() {
-    try {
-      const stats = await counter.stats('vistas');
-      const upCount = stats?.data?.up_count ?? 0; // <- Up Count del dashboard
-      el.textContent = upCount;
-    } catch (e) {
-      console.error('stats error', e);
-      // Fallback: intenta leer el valor directo por si tu SDK lo expone
-      try {
-        const r = await counter.get('vistas');
-        el.textContent = (r?.data?.value ?? r?.value ?? 0);
-      } catch (e2) { el.textContent = '0'; }
-    }
+  // Suma solo si pasó 1 hora desde la última vez en este navegador
+  const last = Number(localStorage.getItem(KEY) || 0);
+  if (Date.now() - last > HOUR) {
+    try { await counter.up(COUNTER); localStorage.setItem(KEY, String(Date.now())); } catch {}
   }
 
-  // refresca una vez ahora y otra tras un pequeño delay por "freshness"
-  refreshFromStats();
-  setTimeout(refreshFromStats, 2000);
+  // Muestra el mismo número que ves en el panel (Up Count)
+  try {
+    const s = await counter.stats(COUNTER);
+    el.textContent = (s?.data?.up_count ?? 0).toLocaleString('es-ES');
+  } catch {
+    // Por si falla stats, intenta get como respaldo
+    try {
+      const r = await counter.get(COUNTER);
+      el.textContent = (r?.data?.value ?? r?.value ?? 0).toLocaleString('es-ES');
+    } catch { el.textContent = '0'; }
+  }
+
+  // Refresco cortito por la consistencia eventual
+  setTimeout(async () => {
+    try {
+      const s2 = await counter.stats(COUNTER);
+      el.textContent = (s2?.data?.up_count ?? 0).toLocaleString('es-ES');
+    } catch {}
+  }, 2000);
 });
 </script>
+
 
 
 
