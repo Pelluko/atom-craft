@@ -150,13 +150,13 @@
   (function() {
     const WORKSPACE = 'atom-craft';  // tu workspace
     const SLUG = 'vistas';           // tu contador
-    const WINDOW_MIN = 30;           // ventana de 30 minutos
+    const WINDOW_MIN = 30;           // ventana en minutos
     const KEY = `counter:${SLUG}:ts`;
     const last = Number(localStorage.getItem(KEY) || 0);
     const now = Date.now();
 
-    // Si pasaron más de 30 min, usamos /up; si no, solo /get
-    const endpoint = (now - last) > WINDOW_MIN * 60 * 1000 ? 'up' : 'get';
+    // Si nunca guardamos timestamp, o ya pasó la ventana -> /up
+    const endpoint = (!last || (now - last) > WINDOW_MIN * 60 * 1000) ? 'up' : 'get';
 
     fetch(`https://api.counterapi.dev/v1/${WORKSPACE}/${SLUG}/${endpoint}`)
       .then(r => r.json())
@@ -171,6 +171,7 @@
       });
   })();
 </script>
+
 
 
 
