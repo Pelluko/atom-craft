@@ -1,188 +1,105 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atom-Craft - Servidor de Minecraft</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/Pelluko/atom-craft/main/favicon.ico">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: url('https://raw.githubusercontent.com/Pelluko/atom-craft/main/p01KGj0.png') no-repeat center center fixed;
-            background-size: cover;
-            color: white;
-            text-align: center;
-            padding: 20px;
-        }
-
-        /* Contenedor del logo */
-        .logo-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            margin-top: 20px;
-            margin-bottom: 30px; /* Más espacio debajo del logo */
-        }
-
-        /* Imagen del logo */
-        .logo {
-            width: 50%;
-            max-width: 500px;
-            min-width: 300px;
-        }
-
-        /* Ajustes específicos para pantallas grandes */
-        @media (min-width: 1024px) {
-            .logo {
-                width: 40%;
-                max-width: 600px;
-            }
-        }
-
-        /* Ajustes para pantallas pequeñas */
-        @media (max-width: 600px) {
-            .logo {
-                width: 80%;
-                max-width: 400px;
-            }
-        }
-        
-
-        .rules, .social {
-            background: rgba(0, 0, 0, 0.6);
-            padding: 15px;
-            margin: 10px auto;
-            width: 80%;
-            border-radius: 10px;
-        }
-.social a {
-    font-size: 1rem; /* Aumenta el tamaño del texto */
-    color: white; /* Color de los enlaces */
-    text-decoration: none;
-    margin: 0 10px;
-}
-
-.social a i {
-    font-size: 1.3rem; /* Tamaño de los iconos */
-    margin-right: 5px;
-}
-
-/* Colores específicos */
-.fa-youtube { color: #FF0000; }
-.fa-discord { color: #5865F2; }
-.fa-facebook { color: #1877F2; }
-
-        a {
-            color: #00ff00;
-            text-decoration: none;
-            font-weight: bold;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Atom-Craft - Servidor de Minecraft</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/Pelluko/atom-craft/main/favicon.ico" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    body{font-family:Arial,sans-serif;background:url('https://raw.githubusercontent.com/Pelluko/atom-craft/main/p01KGj0.png') no-repeat center center fixed;background-size:cover;color:#fff;text-align:center;padding:20px}
+    .logo-container{display:flex;justify-content:center;align-items:center;text-align:center;margin-top:20px;margin-bottom:30px}
+    .logo{width:50%;max-width:500px;min-width:300px}
+    @media (min-width:1024px){.logo{width:40%;max-width:600px}}
+    @media (max-width:600px){.logo{width:80%;max-width:400px}}
+    .rules,.social{background:rgba(0,0,0,.6);padding:15px;margin:10px auto;width:80%;border-radius:10px}
+    .social a{font-size:1rem;color:#fff;text-decoration:none;margin:0 10px}
+    .social a i{font-size:1.3rem;margin-right:5px}
+    .fa-youtube{color:#FF0000}.fa-discord{color:#5865F2}.fa-facebook{color:#1877F2}
+    a{color:#00ff00;text-decoration:none;font-weight:bold}
+  </style>
 </head>
 <body>
-    <nav>
-        <a href="index.html">Atom</a> |
-        <a href="vip.html">Vip</a> |
-        <a href="servidor.html">Status</a> |
-        <a href="like.html">Likes </a>
-    </nav>
+  <nav>
+    <a href="index.html">Atom</a> |
+    <a href="vip.html">Vip</a> |
+    <a href="servidor.html">Status</a> |
+    <a href="like.html">Likes</a>
+  </nav>
 
-    <!-- Imagen como título -->
-    <div class="logo-container">
-        <img src="https://raw.githubusercontent.com/Pelluko/atom-craft/main/img/Logo-Principal.png" alt="Atom-Craft Logo" class="logo">
+  <div class="logo-container">
+    <img src="https://raw.githubusercontent.com/Pelluko/atom-craft/main/img/Logo-Principal.png" alt="Atom-Craft Logo" class="logo" />
+  </div>
+
+  <div class="main-container">
+    <div class="server-info">
+      <h2>🌍 IP del servidor: <span id="ip-servidor" class="copy-ip">atomcraft.papu.host</span></h2>
+      <p id="copy-message" style="display:none;color:#FFD700;font-size:14px;">¡Copiado al portapapeles!</p>
     </div>
 
-    
-    
-<body>
-
-    <!-- Contenedor principal -->
-    <div class="main-container">
-        
-        <!-- Contenedor de la IP del servidor -->
-        <div class="server-info">
-           <h2>🌍 IP del servidor: <span id="ip-servidor" class="copy-ip">atomcraft.papu.host</span></h2>
-           <p id="copy-message" style="display: none; color: #FFD700; font-size: 14px;">¡Copiado al portapapeles!</p>
-
-
-        </div>
-
-        <!-- Contenedor de bienvenida -->
-        <div class="welcome-box">
-            <h2>📜 <strong>Bienvenido/a al Servidor de Minecraft</strong></h2>
-            <p class="welcome-text">
-                🎮 <strong>Atom-Craft</strong> Un lugar donde la creatividad, la aventura y la comunidad se unen.<br>
-                🚀 Explora, construye y únete a eventos especiales mientras disfrutas con amigos.<br>
-                🏆 ¡Demuestra tus habilidades y conviértete en una leyenda del servidor!<br>
-                🛠️ Recuerda seguir las reglas y ayudar a mantener un ambiente amigable para todos.
-            </p>
-            <p class="server-warning">
-                ⚠️ <span style="color: red;">Tener en cuenta que aún el servidor está en construcción</span>
-            </p>
-        </div>
-
-        <!-- Redes sociales -->
-        <div class="social">
-            <h2>🌍 Redes Sociales</h2>
-            <p>Únete a nuestra comunidad:</p>
-            <p>
-                <a href="https://www.youtube.com/@servidor-atom-craft" target="_blank"><i class="fab fa-youtube"></i> YouTube</a> |
-                <a href="https://discord.com/invite/2H78NFnA73" target="_blank"><i class="fab fa-discord"></i> Discord</a> |
-                <a href="https://www.facebook.com/AtomCraft2013" target="_blank"><i class="fab fa-facebook"></i> Facebook</a>
-            </p>
-        </div>
-
+    <div class="welcome-box">
+      <h2>📜 <strong>Bienvenido/a al Servidor de Minecraft</strong></h2>
+      <p class="welcome-text">
+        🎮 <strong>Atom-Craft</strong> Un lugar donde la creatividad, la aventura y la comunidad se unen.<br>
+        🚀 Explora, construye y únete a eventos especiales mientras disfrutas con amigos.<br>
+        🏆 ¡Demuestra tus habilidades y conviértete en una leyenda del servidor!<br>
+        🛠️ Recuerda seguir las reglas y ayudar a mantener un ambiente amigable para todos.
+      </p>
+      <p class="server-warning">⚠️ <span style="color:red;">Tener en cuenta que aún el servidor está en construcción</span></p>
     </div>
 
+    <div class="social">
+      <h2>🌍 Redes Sociales</h2>
+      <p>Únete a nuestra comunidad:</p>
+      <p>
+        <a href="https://www.youtube.com/@servidor-atom-craft" target="_blank"><i class="fab fa-youtube"></i> YouTube</a> |
+        <a href="https://discord.com/invite/2H78NFnA73" target="_blank"><i class="fab fa-discord"></i> Discord</a> |
+        <a href="https://www.facebook.com/AtomCraft2013" target="_blank"><i class="fab fa-facebook"></i> Facebook</a>
+      </p>
+    </div>
+  </div>
 
-    
+  <!-- Contador de visitas -->
+  Visitas: <strong id="visitas">...</strong>
 
-<!-- Contador de visitas -->
-Visitas: <strong id="visitas">...</strong>
+  <script src="https://cdn.jsdelivr.net/npm/counterapi/dist/counter.browser.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const el = document.getElementById('visitas');
+      const counter = new Counter({ workspace: 'atom-craft', debug: true });
+      const getVal = (r) => r?.data?.value ?? r?.value ?? 0;
 
-<script src="https://cdn.jsdelivr.net/npm/counterapi/dist/counter.browser.min.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', async () => {
-  const el = document.getElementById('visitas');
-  const counter = new Counter({ workspace: 'atom-craft', debug: true });
-
-  const getVal = (r) => r?.data?.value ?? r?.value ?? 0;
-
-  try {
-    // 1) incrementa +1 y muestra el valor inmediato
-    const upRes = await counter.up('vistas');
-    el.textContent = getVal(upRes);
-
-    // 2) refresca desde la base tras un momento (eventual consistency)
-    setTimeout(async () => {
       try {
-        const getRes = await counter.get('vistas');
-        el.textContent = getVal(getRes);
-      } catch (e) { console.error('refresh error', e); }
-    }, 2500);
-  } catch (e) {
-    console.error('CounterAPI error', e);
-    el.textContent = 'err';
-  }
-});
-</script>
+        // suma +1 y muestra el valor inmediato
+        const upRes = await counter.up('vistas');
+        el.textContent = getVal(upRes);
 
+        // refresca desde la base (eventual consistency)
+        setTimeout(async () => {
+          try {
+            const getRes = await counter.get('vistas');
+            el.textContent = getVal(getRes);
+          } catch (e) { console.error('refresh error', e); }
+        }, 2500);
+      } catch (e) {
+        console.error('CounterAPI error', e);
+        el.textContent = 'err';
+      }
+    });
+  </script>
 
-
-
-
-
-
-
-
-
-    
-<script src="js/status.js"></script>
-    
+  <!-- Solo ejecuta status.js si usas elementos de ese script -->
+  <script>
+    // Ejemplo de “guard” para evitar errores si el elemento no existe
+    (function(){
+      const needsStatus = document.getElementById('ALGO_QUE_USE_status_js');
+      if (needsStatus) {
+        const s = document.createElement('script');
+        s.src = 'js/status.js'; s.defer = true;
+        document.body.appendChild(s);
+      }
+    })();
+  </script>
 </body>
-
 </html>
