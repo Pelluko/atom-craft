@@ -150,7 +150,7 @@
 (function() {
   const WORKSPACE = 'atom-craft';   // tu workspace
   const SLUG = 'vistas';            // tu contador
-  const WINDOW_HOURS = 24;          // cuenta 1 vez al día por usuario
+  const WINDOW_HOURS = 1;          // cuenta cada una hora
   const KEY = `counter:${SLUG}:ts`;
   const last = Number(localStorage.getItem(KEY) || 0);
   const now = Date.now();
