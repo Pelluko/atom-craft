@@ -142,32 +142,79 @@
     
 
 <!-- Contador de visitas -->
+<!-- Donde se mostrará el número -->
 <span>Visitas: <strong id="visitas">...</strong></span>
+<div id="visitas-error" style="color:#ff6b6b;margin-top:6px;"></div>
 
-<!-- librería -->
+<!-- Librería -->
 <script src="https://cdn.jsdelivr.net/npm/counterapi/dist/counter.browser.min.js"></script>
 <script>
 (async () => {
-  const WORKSPACE_SLUG = 'atom-craft'; // 👈 usa el slug del workspace
-  const COUNTER_SLUG   = 'vistas';     // 👈 usa el slug del counter
+  // Slugs exactos (según tus capturas)
+  const WORKSPACE = 'atom-craft';  // workspace slug
+  const COUNTER   = 'vistas';      // counter slug
 
+  // Espera DOM
   if (document.readyState === 'loading') {
     await new Promise(r => document.addEventListener('DOMContentLoaded', r, { once:true }));
   }
 
-  const out = document.getElementById('visitas');
-  const counter = new Counter({ workspace: 'atom-craft', debug: true });
+  // Asegura el elemento (lo crea si no existe)
+  let out = document.getElementById('visitas');
+  if (!out) {
+    out = document.createElement('strong');
+    out.id = 'visitas';
+    document.body.append(out);
+  }
+  const err = document.getElementById('visitas-error');
+
+  // 1) Verifica que la librería cargó
+  if (typeof Counter !== 'function') {
+    const msg = 'La librería CounterAPI no cargó (¿bloqueada por AdBlock?)';
+    console.error(msg);
+    if (err) err.textContent = msg;
+    return;
+  }
+
+  const counter = new Counter({ workspace: WORKSPACE, debug: true });
+
+  // Helper para extraer valor por si cambia el shape
+  const val = (r) => r?.value ?? r?.count ?? r?.data?.value ?? r?.data?.count ?? null;
+  const showErr = (m, e) => {
+    console.error('[CounterAPI]', m, e);
+    if (err) err.textContent = `${m}${e?.status ? ` (HTTP ${e.status})` : ''}`;
+  };
 
   try {
-    const { value } = await counter.up(COUNTER_SLUG);
-    out.textContent = value;
-    console.log('[CounterAPI] UP OK =>', value);
+    // 2) Lee primero (no suma) para validar que existe
+    const g = await counter.get(COUNTER);
+    console.log('[CounterAPI] GET =>', g);
+    if (val(g) != null) out.textContent = val(g);
+
+    // 3) Incrementa +1 y muestra el valor devuelto
+    const u = await counter.up(COUNTER);
+    console.log('[CounterAPI] UP  =>', u);
+    if (val(u) != null) out.textContent = val(u);
+
+    // 4) Relee tras 2s (por eventual consistency) y actualiza
+    setTimeout(async () => {
+      try {
+        const fresh = await counter.get(COUNTER);
+        console.log('[CounterAPI] GET (fresh) =>', fresh);
+        if (val(fresh) != null) out.textContent = val(fresh);
+      } catch (e) { showErr('Error refrescando valor', e); }
+    }, 2000);
+
   } catch (e) {
-    console.error('[CounterAPI] Error:', e);
-    out.textContent = 'error';
+    // Errores típicos explicados
+    if (e?.status === 404) showErr('No se encontró el workspace o el counter (revisa slugs)', e);
+    else if (e?.status === 401 || e?.status === 403) showErr('Counter privado o origen no permitido', e);
+    else if (e?.message?.includes('Workspace is required')) showErr('Falta "workspace" en la inicialización', e);
+    else showErr('Error con CounterAPI', e);
   }
 })();
 </script>
+
 
 
 
