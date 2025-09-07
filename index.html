@@ -60,46 +60,45 @@
     </div>
   </div>
 
+
+
+  
   <!-- Contador de visitas -->
-  Visitas: <strong id="visitas">...</strong>
+Visitas: <strong id="visitas">...</strong>
 
-  <script src="https://cdn.jsdelivr.net/npm/counterapi/dist/counter.browser.min.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', async () => {
-      const el = document.getElementById('visitas');
-      const counter = new Counter({ workspace: 'atom-craft', debug: true });
-      const getVal = (r) => r?.data?.value ?? r?.value ?? 0;
+<script src="https://cdn.jsdelivr.net/npm/counterapi/dist/counter.browser.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  const el = document.getElementById('visitas');
+  const counter = new Counter({ workspace: 'atom-craft', debug: true });
 
+  // 1) Suma +1 (para contar la visita actual)
+  try { await counter.up('vistas'); } catch (e) { console.warn('up error', e); }
+
+  // 2) Lee las estadísticas y muestra el mismo número que ves en el panel
+  async function refreshFromStats() {
+    try {
+      const stats = await counter.stats('vistas');
+      const upCount = stats?.data?.up_count ?? 0; // <- Up Count del dashboard
+      el.textContent = upCount;
+    } catch (e) {
+      console.error('stats error', e);
+      // Fallback: intenta leer el valor directo por si tu SDK lo expone
       try {
-        // suma +1 y muestra el valor inmediato
-        const upRes = await counter.up('vistas');
-        el.textContent = getVal(upRes);
+        const r = await counter.get('vistas');
+        el.textContent = (r?.data?.value ?? r?.value ?? 0);
+      } catch (e2) { el.textContent = '0'; }
+    }
+  }
 
-        // refresca desde la base (eventual consistency)
-        setTimeout(async () => {
-          try {
-            const getRes = await counter.get('vistas');
-            el.textContent = getVal(getRes);
-          } catch (e) { console.error('refresh error', e); }
-        }, 2500);
-      } catch (e) {
-        console.error('CounterAPI error', e);
-        el.textContent = 'err';
-      }
-    });
-  </script>
+  // refresca una vez ahora y otra tras un pequeño delay por "freshness"
+  refreshFromStats();
+  setTimeout(refreshFromStats, 2000);
+});
+</script>
 
-  <!-- Solo ejecuta status.js si usas elementos de ese script -->
-  <script>
-    // Ejemplo de “guard” para evitar errores si el elemento no existe
-    (function(){
-      const needsStatus = document.getElementById('ALGO_QUE_USE_status_js');
-      if (needsStatus) {
-        const s = document.createElement('script');
-        s.src = 'js/status.js'; s.defer = true;
-        document.body.appendChild(s);
-      }
-    })();
-  </script>
+
+
+  
 </body>
 </html>
