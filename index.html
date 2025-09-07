@@ -148,26 +148,29 @@ Visitas: <strong id="visitas">...</strong>
 <script>
 document.addEventListener('DOMContentLoaded', async () => {
   const el = document.getElementById('visitas');
-
-  // sanity check: si no cambia a "?" es que #visitas no se está encontrando
-  el && (el.textContent = '?');
-
-  // init con slug del workspace
   const counter = new Counter({ workspace: 'atom-craft', debug: true });
 
-  try {
-    // solo leer (si esto pinta, luego cambias a up)
-    const res = await counter.get('vistas');
-    const value = res?.data?.value ?? res?.value ?? null;
-    console.log('VALUE =', value, res);
+  const getVal = (r) => r?.data?.value ?? r?.value ?? 0;
 
-    if (el) el.textContent = (value ?? '0');
+  try {
+    // 1) incrementa +1 y muestra el valor inmediato
+    const upRes = await counter.up('vistas');
+    el.textContent = getVal(upRes);
+
+    // 2) refresca desde la base tras un momento (eventual consistency)
+    setTimeout(async () => {
+      try {
+        const getRes = await counter.get('vistas');
+        el.textContent = getVal(getRes);
+      } catch (e) { console.error('refresh error', e); }
+    }, 2500);
   } catch (e) {
-    console.error('CounterAPI error:', e);
-    if (el) el.textContent = 'err';
+    console.error('CounterAPI error', e);
+    el.textContent = 'err';
   }
 });
 </script>
+
 
 
 
