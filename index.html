@@ -138,25 +138,32 @@
 
     </div>
 
+
     
 
+<!-- Contador visible -->
 <div style="font:14px/1.4 system-ui, sans-serif">
-  Visitas: <span id="vistas">...</span>
+  Visitas: <span id="visitas">...</span>
 </div>
 
 <script>
-  const WORKSPACE = 'atom-craft';
+  // Tu workspace/namespace (puedes dejarlo como 'atom-craft')
+  const NAMESPACE = 'atom-craft';
+  // El slug exacto del contador que creaste
   const COUNTER = 'vistas';
 
-  fetch(`https://counterapi.dev/api/${WORKSPACE}/${COUNTER}/hit`)
+  // Endpoint público (V1) que incrementa y devuelve el total
+  fetch(`https://api.counterapi.dev/v1/${NAMESPACE}/${COUNTER}/up`)
     .then(r => r.json())
     .then(data => {
-      document.getElementById('vistas').textContent = data.count.toLocaleString();
+      const total = data.count ?? data.value ?? 0;
+      document.getElementById('visitas').textContent = total.toLocaleString();
     })
     .catch(() => {
-      document.getElementById('vistas').textContent = '—';
+      document.getElementById('visitas').textContent = '—';
     });
 </script>
+
 
 
     
