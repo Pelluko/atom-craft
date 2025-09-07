@@ -142,50 +142,31 @@
     
 
 <!-- Contador de visitas -->
-<span>Visitas: <strong id="visitas">...</strong></span>
-<div id="visitas-error" style="color:#ff6b6b;margin-top:6px;"></div>
-
 <script src="https://cdn.jsdelivr.net/npm/counterapi/dist/counter.browser.min.js"></script>
 <script>
-(async () => {
-  const WORKSPACE = 'atom-craft';  
-  const COUNTER   = 'vistas';      
+document.addEventListener('DOMContentLoaded', async () => {
+  const el = document.getElementById('visitas');
 
-  if (document.readyState === 'loading') {
-    await new Promise(r => document.addEventListener('DOMContentLoaded', r, { once:true }));
-  }
+  // sanity check: si no cambia a "?" es que #visitas no se está encontrando
+  el && (el.textContent = '?');
 
-  const out = document.getElementById('visitas');
-  const err = document.getElementById('visitas-error');
-  const counter = new Counter({ workspace: WORKSPACE, debug: true });
-
-  const val = (r) => r?.data?.value ?? r?.value ?? null;
-  const showErr = (m, e) => {
-    console.error('[CounterAPI]', m, e);
-    if (err) err.textContent = `${m}${e?.status ? ` (HTTP ${e.status})` : ''}`;
-  };
+  // init con slug del workspace
+  const counter = new Counter({ workspace: 'atom-craft', debug: true });
 
   try {
-    const g = await counter.get(COUNTER);
-    console.log('[CounterAPI] GET =>', g);
-    if (val(g) != null) out.textContent = val(g);
+    // solo leer (si esto pinta, luego cambias a up)
+    const res = await counter.get('vistas');
+    const value = res?.data?.value ?? res?.value ?? null;
+    console.log('VALUE =', value, res);
 
-    const u = await counter.up(COUNTER);
-    console.log('[CounterAPI] UP =>', u);
-    if (val(u) != null) out.textContent = val(u);
-
-    setTimeout(async () => {
-      try {
-        const fresh = await counter.get(COUNTER);
-        console.log('[CounterAPI] GET (fresh) =>', fresh);
-        if (val(fresh) != null) out.textContent = val(fresh);
-      } catch (e) { showErr('Error refrescando valor', e); }
-    }, 2000);
+    if (el) el.textContent = (value ?? '0');
   } catch (e) {
-    showErr('Error con CounterAPI', e);
+    console.error('CounterAPI error:', e);
+    if (el) el.textContent = 'err';
   }
-})();
+});
 </script>
+
 
 
 
