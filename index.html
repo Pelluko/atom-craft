@@ -142,37 +142,56 @@
     
 
 <!-- Contador de visitas -->
+<!-- contador visible -->
 <span>Visitas: <strong id="visitas">...</strong></span>
+<div id="visitas-error" style="color:#ff7676;margin-top:6px;"></div>
 
+<!-- librería -->
 <script src="https://cdn.jsdelivr.net/npm/counterapi/dist/counter.browser.min.js"></script>
 <script>
 (async () => {
-  // === AJUSTA SOLO ESTAS DOS LÍNEAS ===
-  const WORKSPACE = 'Atom-Craft';   // exactamente como aparece en tu dashboard
-  const COUNTER   = 'vistas';       // o 'vistas_vip' si ese quieres incrementar
-  // ====================================
+  const WORKSPACE = 'Atom-Craft'; // nombre del workspace (sin "(Public)")
+  const COUNTER   = 'vistas';     // usa el slug exacto del contador
 
-  // espera a que el DOM exista (por si el script se carga en <head>)
-  if (document.readyState !== 'complete' && document.readyState !== 'interactive') {
+  // espera DOM listo
+  if (document.readyState === 'loading') {
     await new Promise(r => document.addEventListener('DOMContentLoaded', r, { once:true }));
   }
 
-  const el = document.getElementById('visitas');
-  if (!el) console.warn('No existe #visitas en el DOM');
+  const out   = document.getElementById('visitas');
+  const error = document.getElementById('visitas-error');
 
-  // Activa logs verbosos temporalmente
   const counter = new Counter({ workspace: WORKSPACE, debug: true });
 
+  const showErr = (msg, e) => {
+    console.error('[CounterAPI]', msg, e);
+    error.textContent = `${msg}${e?.status ? ` (HTTP ${e.status})` : ''}`;
+  };
+
   try {
-    // INCREMENTA (+1) y muestra
-    const { value } = await counter.up(COUNTER);
-    if (el) el.textContent = value;
-    console.log('[CounterAPI] UP OK =>', value);
+    // 1) leer valor actual (no suma)
+    const getRes = await counter.get(COUNTER);
+    out.textContent = getRes.value;
+
+    // 2) incrementar +1
+    const upRes = await counter.up(COUNTER);
+    out.textContent = upRes.value;
+
+    // 3) volver a leer (por si hay buffering, puede tardar en verse)
+    setTimeout(async () => {
+      try {
+        const fresh = await counter.get(COUNTER);
+        out.textContent = fresh.value;
+      } catch (e) { showErr('Error refrescando contador', e); }
+    }, 1500);
   } catch (e) {
-    console.error('[CounterAPI] Error:', e?.message || e, e);  // mira la consola
+    if (e?.status === 404) showErr('No se encontró el counter o workspace', e);
+    else if (e?.status === 401 || e?.status === 403) showErr('Counter privado o origen no permitido', e);
+    else showErr('Error con CounterAPI', e);
   }
 })();
 </script>
+
 
 
 
