@@ -142,55 +142,33 @@
     
 
 <!-- Contador de visitas -->
-<!-- contador visible -->
 <span>Visitas: <strong id="visitas">...</strong></span>
-<div id="visitas-error" style="color:#ff7676;margin-top:6px;"></div>
 
 <!-- librería -->
 <script src="https://cdn.jsdelivr.net/npm/counterapi/dist/counter.browser.min.js"></script>
 <script>
 (async () => {
-  const WORKSPACE = 'Atom-Craft'; // nombre del workspace (sin "(Public)")
-  const COUNTER   = 'vistas';     // usa el slug exacto del contador
+  const WORKSPACE_SLUG = 'atom-craft'; // 👈 usa el slug del workspace
+  const COUNTER_SLUG   = 'vistas';     // 👈 usa el slug del counter
 
-  // espera DOM listo
   if (document.readyState === 'loading') {
     await new Promise(r => document.addEventListener('DOMContentLoaded', r, { once:true }));
   }
 
-  const out   = document.getElementById('visitas');
-  const error = document.getElementById('visitas-error');
-
-  const counter = new Counter({ workspace: WORKSPACE, debug: true });
-
-  const showErr = (msg, e) => {
-    console.error('[CounterAPI]', msg, e);
-    error.textContent = `${msg}${e?.status ? ` (HTTP ${e.status})` : ''}`;
-  };
+  const out = document.getElementById('visitas');
+  const counter = new Counter({ workspaceSlug: WORKSPACE_SLUG, debug: true });
 
   try {
-    // 1) leer valor actual (no suma)
-    const getRes = await counter.get(COUNTER);
-    out.textContent = getRes.value;
-
-    // 2) incrementar +1
-    const upRes = await counter.up(COUNTER);
-    out.textContent = upRes.value;
-
-    // 3) volver a leer (por si hay buffering, puede tardar en verse)
-    setTimeout(async () => {
-      try {
-        const fresh = await counter.get(COUNTER);
-        out.textContent = fresh.value;
-      } catch (e) { showErr('Error refrescando contador', e); }
-    }, 1500);
+    const { value } = await counter.up(COUNTER_SLUG);
+    out.textContent = value;
+    console.log('[CounterAPI] UP OK =>', value);
   } catch (e) {
-    if (e?.status === 404) showErr('No se encontró el counter o workspace', e);
-    else if (e?.status === 401 || e?.status === 403) showErr('Counter privado o origen no permitido', e);
-    else showErr('Error con CounterAPI', e);
+    console.error('[CounterAPI] Error:', e);
+    out.textContent = 'error';
   }
 })();
 </script>
+
 
 
 
