@@ -142,26 +142,38 @@
     
 
 <!-- Contador de visitas -->
-<!-- 1) Cliente de CounterAPI para navegador -->
-<script src="https://cdn.jsdelivr.net/npm/counterapi/dist/counter.browser.min.js"></script>
+<span>Visitas: <strong id="visitas">...</strong></span>
 
-<!-- 2) Incrementa y muestra el contador "Vistas" de tu workspace "Atom-Craft" -->
+<script src="https://cdn.jsdelivr.net/npm/counterapi/dist/counter.browser.min.js"></script>
 <script>
 (async () => {
-  // Asegúrate de que el nombre del workspace y del contador coincidan EXACTO
-  const counter = new Counter({ workspace: 'Atom-Craft' });    // tu workspace
+  // === AJUSTA SOLO ESTAS DOS LÍNEAS ===
+  const WORKSPACE = 'Atom-Craft';   // exactamente como aparece en tu dashboard
+  const COUNTER   = 'vistas';       // o 'vistas_vip' si ese quieres incrementar
+  // ====================================
+
+  // espera a que el DOM exista (por si el script se carga en <head>)
+  if (document.readyState !== 'complete' && document.readyState !== 'interactive') {
+    await new Promise(r => document.addEventListener('DOMContentLoaded', r, { once:true }));
+  }
+
+  const el = document.getElementById('visitas');
+  if (!el) console.warn('No existe #visitas en el DOM');
+
+  // Activa logs verbosos temporalmente
+  const counter = new Counter({ workspace: WORKSPACE, debug: true });
+
   try {
-    // Sube +1 y muestra el valor
-    const { value } = await counter.up('Vistas');              // tu contador
-    const el = document.getElementById('visitas');
+    // INCREMENTA (+1) y muestra
+    const { value } = await counter.up(COUNTER);
     if (el) el.textContent = value;
+    console.log('[CounterAPI] UP OK =>', value);
   } catch (e) {
-    console.error('CounterAPI error:', e);
+    console.error('[CounterAPI] Error:', e?.message || e, e);  // mira la consola
   }
 })();
 </script>
 
-Visitas: <span id="visitas">...</span>
 
 
 
