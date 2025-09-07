@@ -87,7 +87,53 @@
     </div>
 
     <script src="js/status.js"></script>
-    
 
+    
+  <!-- Contador de visitas -->
+Visitas Status: <strong id="visitas-status">...</strong>
+
+<script src="https://cdn.jsdelivr.net/npm/counterapi/dist/counter.browser.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  const el = document.getElementById('visitas-status');
+  if (!el) return;
+
+  const counter = new Counter({ workspace: 'atom-craft' });
+  const COUNTER = 'vistas_status';     // 👈 tu slug de la captura
+  const KEY = 'status:last';           // guarda última suma para esta página
+  const HOUR = 60 * 60 * 1000;         // 1 hora
+
+  // 1) Sumar solo si pasó 1 hora en este navegador
+  try {
+    const last = Number(localStorage.getItem(KEY) || 0);
+    if (Date.now() - last > HOUR) {
+      await counter.up(COUNTER);
+      localStorage.setItem(KEY, String(Date.now()));
+    }
+  } catch (e) { console.warn('up error', e); }
+
+  // 2) Mostrar el número del panel (Up Count)
+  async function paint() {
+    try {
+      const s = await counter.stats(COUNTER);
+      el.textContent = (s?.data?.up_count ?? 0).toLocaleString('es-ES');
+    } catch {
+      // Fallback: por si stats falla, usar get()
+      try {
+        const r = await counter.get(COUNTER);
+        el.textContent = (r?.data?.value ?? r?.value ?? 0).toLocaleString('es-ES');
+      } catch { el.textContent = '0'; }
+    }
+  }
+
+  paint();
+  setTimeout(paint, 2000); // pequeño refresco por consistencia
+});
+</script>
+
+
+
+
+    
 </body>
 </html>
