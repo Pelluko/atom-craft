@@ -1,1 +1,9 @@
+{
+  "updatedAt": "2025-10-01T12:00:00Z",
+  "players": [
+    { "name": "Pelluko",   "votes_all": 123, "votes_month": 18, "votes_week": 6, "delta_week": 2, "streak": 5 },
+    { "name": "MineaGOD",  "votes_all": 97,  "votes_month": 15, "votes_week": 4, "delta_week": -1, "streak": 2 },
+    { "name": "KiriCraft", "votes_all": 61,  "votes_month": 9,  "votes_week": 3, "delta_week": 0, "streak": 3 }
+  ]
+}
 
