@@ -135,7 +135,7 @@
   // 1) Carga de datos
   let data;
   try{
-    const res = await fetch('/data/votes.json', {cache: 'no-store'});
+    const res = await fetch('data/votes.json', {cache: 'no-store'});
     data = await res.json();
   }catch(e){
     console.error(e);
