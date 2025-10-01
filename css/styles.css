@@ -495,3 +495,42 @@ a:hover {
     transition: 0.3s ease-in-out;
 }
 
+
+
+/* --- Fix: opciones del <select> invisibles en modo oscuro, votos! --- */
+.ac-leaderboard { overflow: visible; } /* evita que el menú quede recortado */
+
+.ac-controls select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  color: var(--ac-text);
+  background: var(--ac-card);
+  border: 1px solid var(--ac-border);
+}
+
+.ac-controls select:focus {
+  outline: 2px solid var(--ac-accent-2);
+  outline-offset: 2px;
+}
+
+/* Colores de las opciones del dropdown */
+.ac-controls select option,
+.ac-controls select optgroup {
+  background-color: #111318;   /* fondo oscuro */
+  color: #e9ecf1;              /* texto claro */
+}
+
+/* En modo claro invertimos */
+@media (prefers-color-scheme: light) {
+  .ac-controls select option,
+  .ac-controls select optgroup {
+    background-color: #ffffff; /* fondo claro */
+    color: #111827;            /* texto oscuro */
+  }
+}
+
+/* (opcional) placeholder del buscador más visible */
+#ac-search::placeholder { color: var(--ac-sub); opacity: .9; }
+
+
