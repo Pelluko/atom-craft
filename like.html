@@ -20,6 +20,219 @@
         <img src="https://raw.githubusercontent.com/Pelluko/atom-craft/main/img/Logo-Principal.png" alt="Atom-Craft Logo" class="logo">
     </div>
     <h1>🗳️ Vota por AtomCraft</h1>
+
+<!-- ========== Leaderboard AtomCraft ========== -->
+<section id="vote-leaderboard" class="ac-leaderboard">
+  <div class="ac-header">
+    <h2>🏆 Ranking de Votantes</h2>
+    <div class="ac-controls">
+      <input id="ac-search" type="search" placeholder="Buscar jugador..." />
+      <select id="ac-range">
+        <option value="all">Todos los tiempos</option>
+        <option value="month">Este mes</option>
+        <option value="week">Esta semana</option>
+      </select>
+    </div>
+  </div>
+
+  <ol id="ac-list" class="ac-list" start="1" aria-live="polite"></ol>
+
+  <div class="ac-footer">
+    <button id="ac-prev" disabled>← Anterior</button>
+    <span id="ac-page">1 / 1</span>
+    <button id="ac-next" disabled>Siguiente →</button>
+  </div>
+</section>
+
+<style>
+  :root{
+    --ac-bg: rgba(18,18,28,.75);
+    --ac-card: rgba(255,255,255,.06);
+    --ac-border: rgba(255,255,255,.08);
+    --ac-text: #e9ecf1;
+    --ac-sub: #b9c1cc;
+    --ac-accent: #5df2b0;
+    --ac-accent-2: #4ec4ff;
+  }
+  @media (prefers-color-scheme: light){
+    :root{
+      --ac-bg: rgba(255,255,255,.75);
+      --ac-card: rgba(0,0,0,.04);
+      --ac-border: rgba(0,0,0,.06);
+      --ac-text: #111827;
+      --ac-sub: #4b5563;
+    }
+  }
+  .ac-leaderboard{
+    backdrop-filter: blur(6px);
+    background: var(--ac-bg);
+    border: 1px solid var(--ac-border);
+    border-radius: 14px;
+    padding: 18px;
+    margin: 28px auto;
+    max-width: 860px;
+    box-shadow: 0 8px 30px rgba(0,0,0,.25);
+  }
+  .ac-header{
+    display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
+    margin-bottom:12px; color:var(--ac-text)
+  }
+  .ac-header h2{
+    margin:0; font-weight:800; letter-spacing:.3px;
+    background: linear-gradient(90deg,var(--ac-accent),var(--ac-accent-2));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .ac-controls{display:flex; gap:8px}
+  .ac-controls input, .ac-controls select{
+    background: var(--ac-card); color: var(--ac-text);
+    border:1px solid var(--ac-border); border-radius:10px;
+    padding:10px 12px; outline:none;
+  }
+  .ac-list{list-style:none; padding:0; margin:0; display:grid; gap:10px}
+  .ac-item{
+    display:grid; grid-template-columns: 48px 1fr auto; align-items:center; gap:14px;
+    background: linear-gradient(180deg, var(--ac-card), transparent);
+    border:1px solid var(--ac-border); border-radius:12px; padding:10px;
+    transition: transform .15s ease, border-color .15s ease;
+  }
+  .ac-item:hover{ transform: translateY(-2px); border-color: var(--ac-accent-2)}
+  .ac-rank{ font-weight:800; width:48px; text-align:center; color:var(--ac-sub)}
+  .ac-main{ display:flex; align-items:center; gap:12px; min-width:0}
+  .ac-main img{ width:42px; height:42px; border-radius:8px; image-rendering: pixelated; }
+  .ac-name{
+    color:var(--ac-text); font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+  .ac-sub{ color:var(--ac-sub); font-size:.9rem}
+  .ac-badge{
+    display:inline-block; font-size:.75rem; padding:2px 8px; border-radius:999px;
+    border:1px solid var(--ac-border); margin-left:6px; color:var(--ac-sub)
+  }
+  .ac-right{ display:flex; align-items:center; gap:14px}
+  .ac-points{ text-align:right}
+  .ac-points b{ color:var(--ac-text)}
+  .ac-delta{ font-size:.85rem}
+  .ac-delta.up{ color:#22c55e} .ac-delta.down{ color:#ef4444} .ac-delta.flat{ color:var(--ac-sub)}
+  .ac-bar-wrap{ width:180px; height:8px; background:var(--ac-card); border-radius:6px; overflow:hidden; border:1px solid var(--ac-border)}
+  .ac-bar{ height:100%; width:0; background: linear-gradient(90deg, var(--ac-accent), var(--ac-accent-2)); transition: width .9s cubic-bezier(.2,.7,.2,1)}
+  .ac-footer{ display:flex; justify-content:center; align-items:center; gap:12px; margin-top:12px}
+  .ac-footer button{
+    padding:8px 12px; border-radius:10px; border:1px solid var(--ac-border);
+    background:var(--ac-card); color:var(--ac-text); cursor:pointer
+  }
+  .ac-medal{ font-size:1.1rem; margin-right:6px }
+</style>
+
+<script>
+(async function(){
+  const PAGE_SIZE = 10;
+  const listEl   = document.getElementById('ac-list');
+  const searchEl = document.getElementById('ac-search');
+  const rangeEl  = document.getElementById('ac-range');
+  const prevEl   = document.getElementById('ac-prev');
+  const nextEl   = document.getElementById('ac-next');
+  const pageEl   = document.getElementById('ac-page');
+
+  // 1) Carga de datos
+  let data;
+  try{
+    const res = await fetch('/data/votes.json', {cache: 'no-store'});
+    data = await res.json();
+  }catch(e){
+    console.error(e);
+    data = { updatedAt: new Date().toISOString(), players: [] };
+  }
+
+  // Normaliza y calcula métricas
+  const players = (data.players || []).map(p => ({
+    name: p.name,
+    votes_all: +p.votes_all || 0,
+    votes_month: +p.votes_month || 0,
+    votes_week: +p.votes_week || 0,
+    // tendencia: comparación con la semana anterior (si la envías en el JSON)
+    delta_week: typeof p.delta_week === 'number' ? p.delta_week : 0,
+    streak: +p.streak || 0
+  }));
+
+  // Estado de UI
+  let page = 1;
+  let q = '';
+  let range = 'all';
+
+  function applyFilters(){
+    const key = range === 'week' ? 'votes_week' : (range === 'month' ? 'votes_month' : 'votes_all');
+    let filtered = players
+      .filter(p => p.name.toLowerCase().includes(q))
+      .sort((a,b) => b[key] - a[key]);
+
+    const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+    page = Math.min(page, totalPages);
+
+    // render
+    const start = (page-1)*PAGE_SIZE;
+    const pageItems = filtered.slice(start, start + PAGE_SIZE);
+    render(pageItems, key, start);
+    prevEl.disabled = page <= 1;
+    nextEl.disabled = page >= totalPages;
+    pageEl.textContent = `${page} / ${totalPages}`;
+  }
+
+  function medal(rank){
+    if(rank===1) return '🥇';
+    if(rank===2) return '🥈';
+    if(rank===3) return '🥉';
+    return '';
+  }
+
+  function render(items, key, startIndex){
+    listEl.innerHTML = '';
+    const max = Math.max(1, (items[0]?.[key] || 1));
+    items.forEach((p, i) => {
+      const rank = startIndex + i + 1;
+      const li = document.createElement('li');
+      li.className = 'ac-item';
+      const avatar = `https://mc-heads.net/avatar/${encodeURIComponent(p.name)}/64`;
+      const value = p[key] || 0;
+      const delta = p.delta_week || 0;
+      const deltaClass = delta>0?'up':(delta<0?'down':'flat');
+      const deltaText = delta>0?`▲ ${delta}`:(delta<0?`▼ ${Math.abs(delta)}`:'—');
+
+      li.innerHTML = `
+        <div class="ac-rank">${medal(rank)}<span>${rank}</span></div>
+        <div class="ac-main">
+          <img src="${avatar}" alt="${p.name} avatar" loading="lazy" />
+          <div>
+            <div class="ac-name">${p.name}
+              ${p.streak>=3 ? `<span class="ac-badge">🔥 ${p.streak}d racha</span>`:''}
+            </div>
+            <div class="ac-sub">${key==='votes_all'?'Total votos': key==='votes_month'?'Votos del mes':'Votos de la semana'}</div>
+          </div>
+        </div>
+        <div class="ac-right">
+          <div class="ac-bar-wrap"><div class="ac-bar" style="width:${Math.round((value/max)*100)}%"></div></div>
+          <div class="ac-points">
+            <b>${value}</b><div class="ac-delta ${deltaClass}">${deltaText}</div>
+          </div>
+        </div>
+      `;
+      listEl.appendChild(li);
+    });
+    // anima barras en re-render
+    requestAnimationFrame(()=>document.querySelectorAll('.ac-bar').forEach(b=>b.style.width=b.style.width));
+  }
+
+  // Eventos
+  searchEl.addEventListener('input', e => { q = e.target.value.trim().toLowerCase(); page=1; applyFilters(); });
+  rangeEl.addEventListener('change', e => { range = e.target.value; page=1; applyFilters(); });
+  prevEl.addEventListener('click', ()=>{ page--; applyFilters(); });
+  nextEl.addEventListener('click', ()=>{ page++; applyFilters(); });
+
+  // Init
+  applyFilters();
+})();
+</script>
+<!-- ========== /Leaderboard AtomCraft ========== -->
+
+    
     <!-- Cuadro de votación -->
     <div class="likes-box">
         <ul>
