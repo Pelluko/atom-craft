@@ -4,11 +4,24 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Atom-Craft - Servidor de Minecraft</title>
+
+  <!-- CSS local (ya lo tenías bien) -->
   <link rel="stylesheet" href="css/styles.css" />
-  <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/Pelluko/atom-craft/main/favicon.ico" />
+
+  <!-- Favicon: servir desde tu propio Pages -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+
+  <!-- Font Awesome desde CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
   <style>
-    body{font-family:Arial,sans-serif;background:url('https://raw.githubusercontent.com/Pelluko/atom-craft/main/p01KGj0.png') no-repeat center center fixed;background-size:cover;color:#fff;text-align:center;padding:20px}
+    /* Fondo: usar imagen local (raíz del repo) */
+    body{
+      font-family:Arial,sans-serif;
+      background:url('p01KGj0.png') no-repeat center center fixed;
+      background-size:cover;
+      color:#fff;text-align:center;padding:20px
+    }
     .logo-container{display:flex;justify-content:center;align-items:center;text-align:center;margin-top:20px;margin-bottom:30px}
     .logo{width:50%;max-width:500px;min-width:300px}
     @media (min-width:1024px){.logo{width:40%;max-width:600px}}
@@ -29,7 +42,8 @@
   </nav>
 
   <div class="logo-container">
-    <img src="https://raw.githubusercontent.com/Pelluko/atom-craft/main/img/Logo-Principal.png" alt="Atom-Craft Logo" class="logo" />
+    <!-- Logo: servir desde /img del repo -->
+    <img src="img/Logo-Principal.png" alt="Atom-Craft Logo" class="logo" />
   </div>
 
   <div class="main-container">
@@ -60,52 +74,44 @@
     </div>
   </div>
 
-
-
-  
   <!-- Contador de visitas -->
-Visitas: <strong id="visitas">...</strong>
+  Visitas: <strong id="visitas">...</strong>
 
-<script src="https://cdn.jsdelivr.net/npm/counterapi/dist/counter.browser.min.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', async () => {
-  const el = document.getElementById('visitas');
-  const counter = new Counter({ workspace: 'atom-craft' });
-  const COUNTER = 'vistas';
-  const KEY = 'vistas:last';
-  const HOUR = 60*60*1000; // 1 hora
+  <script src="https://cdn.jsdelivr.net/npm/counterapi/dist/counter.browser.min.js"></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', async () => {
+    const el = document.getElementById('visitas');
+    const counter = new Counter({ workspace: 'atom-craft' });
+    const COUNTER = 'vistas';
+    const KEY = 'vistas:last';
+    const HOUR = 60*60*1000; // 1 hora
 
-  // Suma solo si pasó 1 hora desde la última vez en este navegador
-  const last = Number(localStorage.getItem(KEY) || 0);
-  if (Date.now() - last > HOUR) {
-    try { await counter.up(COUNTER); localStorage.setItem(KEY, String(Date.now())); } catch {}
-  }
+    // Suma solo si pasó 1 hora desde la última vez en este navegador
+    const last = Number(localStorage.getItem(KEY) || 0);
+    if (Date.now() - last > HOUR) {
+      try { await counter.up(COUNTER); localStorage.setItem(KEY, String(Date.now())); } catch {}
+    }
 
-  // Muestra el mismo número que ves en el panel (Up Count)
-  try {
-    const s = await counter.stats(COUNTER);
-    el.textContent = (s?.data?.up_count ?? 0).toLocaleString('es-ES');
-  } catch {
-    // Por si falla stats, intenta get como respaldo
+    // Muestra el mismo número que ves en el panel (Up Count)
     try {
-      const r = await counter.get(COUNTER);
-      el.textContent = (r?.data?.value ?? r?.value ?? 0).toLocaleString('es-ES');
-    } catch { el.textContent = '0'; }
-  }
+      const s = await counter.stats(COUNTER);
+      el.textContent = (s?.data?.up_count ?? 0).toLocaleString('es-ES');
+    } catch {
+      // Por si falla stats, intenta get como respaldo
+      try {
+        const r = await counter.get(COUNTER);
+        el.textContent = (r?.data?.value ?? r?.value ?? 0).toLocaleString('es-ES');
+      } catch { el.textContent = '0'; }
+    }
 
-  // Refresco cortito por la consistencia eventual
-  setTimeout(async () => {
-    try {
-      const s2 = await counter.stats(COUNTER);
-      el.textContent = (s2?.data?.up_count ?? 0).toLocaleString('es-ES');
-    } catch {}
-  }, 2000);
-});
-</script>
-
-
-
-
-  
+    // Refresco cortito por la consistencia eventual
+    setTimeout(async () => {
+      try {
+        const s2 = await counter.stats(COUNTER);
+        el.textContent = (s2?.data?.up_count ?? 0).toLocaleString('es-ES');
+      } catch {}
+    }, 2000);
+  });
+  </script>
 </body>
 </html>
