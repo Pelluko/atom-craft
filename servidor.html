@@ -1,143 +1,174 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atom-Craft - Status</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atom-Craft - Status</title>
+
+  <!-- CSS local -->
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Favicon local -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <!-- Iconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-        <nav>
-        <a href="index.html">Atom</a> |
-        <a href="vip.html">Vip</a> |
-        <a href="servidor.html">Status</a> |
-        <a href="like.html">Likes</a>
-    </nav>
+  <nav>
+    <a href="index.html">Atom</a> |
+    <a href="vip.html">Vip</a> |
+    <a href="servidor.html">Status</a> |
+    <a href="like.html">Likes</a>
+  </nav>
 
-    <!-- Imagen como título -->
-    <div class="logo-container">
-        <img src="img/Logo-Principal.png" alt="Atom-Craft Logo" class="logo">
+  <!-- Logo -->
+  <div class="logo-container">
+    <img src="img/Logo-Principal.png" alt="Atom-Craft Logo" class="logo">
+  </div>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: url('p01KGj0.png') no-repeat center center fixed; /* LOCAL */
+      background-size: cover;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    /* Contenedor del logo */
+    .logo-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      margin-top: 20px;
+      margin-bottom: 30px;
+    }
+
+    /* Imagen del logo */
+    .logo {
+      width: 50%;
+      max-width: 500px;
+      min-width: 300px;
+    }
+
+    /* Ajustes específicos para pantallas grandes */
+    @media (min-width: 1024px) {
+      .logo {
+        width: 40%;
+        max-width: 600px;
+      }
+    }
+
+    /* Ajustes para pantallas pequeñas */
+    @media (max-width: 600px) {
+      .logo {
+        width: 80%;
+        max-width: 400px;
+      }
+    }
+
+    a {
+      color: #00ff00;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .server-status {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 20px;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+
+    #player-list-container {
+      margin-top: 20px;
+    }
+
+    #player-list {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0;
+    }
+
+    #player-list li {
+      background: rgba(255, 255, 255, 0.1);
+      margin: 5px auto;
+      padding: 8px;
+      border-radius: 8px;
+      width: 70%;
+      color: #fff;
+    }
+
+    footer.footer-visitas {
+      margin-top: 40px;
+      font-size: 1.1rem;
+    }
+  </style>
+
+  <h1>🌍 Estado del Servidor</h1>
+
+  <div class="server-status">
+    <p><strong>IP:</strong> atomcraft.papu.host</p>
+    <p><strong>Estado:</strong> <span id="status">Cargando...</span></p>
+    <p><strong>Jugadores:</strong> <span id="players">-</span></p>
+    <p><strong>Versión:</strong> <span id="version">-</span></p>
+    <div id="player-list-container">
+      <h3>🧑‍💻 Jugadores Conectados:</h3>
+      <ul id="player-list"></ul>
     </div>
+  </div>
 
-        <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: url('p01KGj0.png') no-repeat center center fixed; /* LOCAL */
-            background-size: cover;
-            color: white;
-            text-align: center;
-            padding: 20px;
-        }
+  <!-- Script de estado -->
+  <script src="js/status.js"></script>
 
-        /* Contenedor del logo */
-        .logo-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            margin-top: 20px;
-            margin-bottom: 30px; /* Más espacio debajo del logo */
-        }
-
-        /* Imagen del logo */
-        .logo {
-            width: 50%;
-            max-width: 500px;
-            min-width: 300px;
-        }
-
-        /* Ajustes específicos para pantallas grandes */
-        @media (min-width: 1024px) {
-            .logo {
-                width: 40%;
-                max-width: 600px;
-            }
-        }
-
-        /* Ajustes para pantallas pequeñas */
-        @media (max-width: 600px) {
-            .logo {
-                width: 80%;
-                max-width: 400px;
-            }
-        }
-
-
-        a {
-            color: #00ff00;
-            text-decoration: none;
-            font-weight: bold;
-        }
-    </style>
-
-
-      <h1>🌍 Estado del Servidor</h1>
-
-    <div class="server-status">
-        <p><strong>IP:</strong> atomcraft.papu.host</p>
-        <p><strong>Estado:</strong> <span id="status">Cargando...</span></p>
-        <p><strong>Jugadores:</strong> <span id="players">-</span></p>
-        <p><strong>Versión:</strong> <span id="version">-</span></p>
-        <div id="player-list-container">
-            <h3>🧑‍💻 Jugadores Conectados:</h3>
-            <ul id="player-list"></ul>
-        </div>
-    </div>
-
-    <script src="js/status.js"></script>
-
-    
   <!-- Contador de visitas -->
-<main>
-<script src="https://cdn.jsdelivr.net/npm/counterapi/dist/counter.browser.min.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', async () => {
-  const el = document.getElementById('visitas-status');
-  if (!el) return;
+  <main>
+    <script src="https://cdn.jsdelivr.net/npm/counterapi/dist/counter.browser.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', async () => {
+        const el = document.getElementById('visitas-status');
+        if (!el) return;
 
-  const counter = new Counter({ workspace: 'atom-craft' });
-  const COUNTER = 'vistas_status';     // 👈 tu slug de la captura
-  const KEY = 'status:last';           // guarda última suma para esta página
-  const HOUR = 60 * 60 * 1000;         // 1 hora
+        const counter = new Counter({ workspace: 'atom-craft' });
+        const COUNTER = 'vistas_status';
+        const KEY = 'status:last';
+        const HOUR = 60 * 60 * 1000; // 1 hora
 
-  // 1) Sumar solo si pasó 1 hora en este navegador
-  try {
-    const last = Number(localStorage.getItem(KEY) || 0);
-    if (Date.now() - last > HOUR) {
-      await counter.up(COUNTER);
-      localStorage.setItem(KEY, String(Date.now()));
-    }
-  } catch (e) { console.warn('up error', e); }
+        // Sumar solo si pasó 1 hora en este navegador
+        try {
+          const last = Number(localStorage.getItem(KEY) || 0);
+          if (Date.now() - last > HOUR) {
+            await counter.up(COUNTER);
+            localStorage.setItem(KEY, String(Date.now()));
+          }
+        } catch (e) { console.warn('up error', e); }
 
-  // 2) Mostrar el número del panel (Up Count)
-  async function paint() {
-    try {
-      const s = await counter.stats(COUNTER);
-      el.textContent = (s?.data?.up_count ?? 0).toLocaleString('es-ES');
-    } catch {
-      // Fallback: por si stats falla, usar get()
-      try {
-        const r = await counter.get(COUNTER);
-        el.textContent = (r?.data?.value ?? r?.value ?? 0).toLocaleString('es-ES');
-      } catch { el.textContent = '0'; }
-    }
-  }
+        // Mostrar número de visitas
+        async function paint() {
+          try {
+            const s = await counter.stats(COUNTER);
+            el.textContent = (s?.data?.up_count ?? 0).toLocaleString('es-ES');
+          } catch {
+            try {
+              const r = await counter.get(COUNTER);
+              el.textContent = (r?.data?.value ?? r?.value ?? 0).toLocaleString('es-ES');
+            } catch { el.textContent = '0'; }
+          }
+        }
 
-  paint();
-  setTimeout(paint, 2000); // pequeño refresco por consistencia
-});
-</script>
-</main>
+        paint();
+        setTimeout(paint, 2000);
+      });
+    </script>
+  </main>
 
-<footer class="footer-visitas">
-  Visitas: <strong id="visitas-status">...</strong>
-</footer>
-
-
-
-
-    
+  <footer class="footer-visitas">
+    Visitas: <strong id="visitas-status">...</strong>
+  </footer>
 </body>
 </html>
