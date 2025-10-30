@@ -533,36 +533,3 @@ a:hover {
 /* (opcional) placeholder del buscador más visible */
 #ac-search::placeholder { color: var(--ac-sub); opacity: .9; }
 
-
-/* Fuerza que nombre y subtítulo ocupen siempre la misma “rejilla” de 2 filas */
-/* Fuerza que nombre y subtítulo ocupen siempre la misma “rejilla” de 2 filas */
-.ac-main > div{
-  display: grid;
-  grid-template-rows: 1.25em 1em; /* fila 1: nombre; fila 2: "Total votos" */
-  align-content: start;
-  min-width: 0; /* permite elipsis del nombre */
-}
-
-/* Que el nombre y la badge no cambien la altura de su fila */
-.ac-name{
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  line-height: 1.25em;   /* coincide con la primera fila */
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.ac-badge{
-  flex: 0 0 auto;        /* la badge no fuerza ancho ni alto extra */
-}
-
-/* Subtítulo ("Total votos", etc.) alineado y con altura fija */
-.ac-sub{
-  line-height: 1em;      /* coincide con la segunda fila */
-  white-space: nowrap;
-}
-
-
-
