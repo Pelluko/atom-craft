@@ -152,7 +152,7 @@ async function obtenerEstadoServidorBedrock() {
 
 // ===== MOTD GLOBAL =====
 async function obtenerMotd() {
-  const url = "https://api.mcstatus.io/v2/status/java/atomcraft.papu.host:20201";
+  const url = "https://api.mcstatus.io/v2/status/java/atomcraft.papu.host";
 
   const L1 = document.getElementById("motd-line1");
   const L2 = document.getElementById("motd-line2");
