@@ -169,9 +169,16 @@ async function obtenerMotd() {
       return;
     }
 
-    const lines = data.motd?.clean || [];
-    L1.textContent = lines[0] || "";
-    L2.textContent = lines[1] || "";
+    // motd.clean es un STRING con saltos de línea "\n"
+    const clean =
+      data.motd && typeof data.motd.clean === "string"
+        ? data.motd.clean
+        : "";
+
+    const partes = clean.split("\n"); // divide en líneas
+
+    L1.textContent = partes[0] || "";
+    L2.textContent = partes[1] || "";
 
   } catch (e) {
     L1.textContent = "Error cargando MOTD";
@@ -179,6 +186,7 @@ async function obtenerMotd() {
     console.error("MOTD error:", e);
   }
 }
+
 
 
 
