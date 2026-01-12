@@ -571,8 +571,13 @@ a:hover {
     font-weight: bold;
     color: #ffeb3b;
     text-shadow: 0 0 4px #000;
+    
 }
 
+/* Mostrar saltos de línea en MOTD */
+#motd-html {
+    white-space: pre-line;
+}
 
 
 
