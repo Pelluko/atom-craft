@@ -150,42 +150,31 @@ async function obtenerEstadoServidorBedrock() {
 
 
 
-// ===== MOTD GLOBAL =====
+// ===== MOTD GLOBAL (usando HTML de mcstatus.io) =====
 async function obtenerMotd() {
-  const url = "https://api.mcstatus.io/v2/status/java/atomcraft.papu.host";
+  // mismo endpoint que ves en la página de mcstatus
+  const url = "https://api.mcstatus.io/v2/status/java/mc4.papu.host:20201";
 
-  const L1 = document.getElementById("motd-line1");
-  const L2 = document.getElementById("motd-line2");
-
-  if (!L1) return;
+  const motdEl = document.getElementById("motd-html");
+  if (!motdEl) return;
 
   try {
     const res = await fetch(url);
     const data = await res.json();
 
-    if (!data.online) {
-      L1.textContent = "Servidor Offline";
-      L2.textContent = "";
+    if (!data.online || !data.motd || !data.motd.html) {
+      motdEl.textContent = "Servidor Offline";
       return;
     }
 
-    // motd.clean es un STRING con saltos de línea "\n"
-    const clean =
-      data.motd && typeof data.motd.clean === "string"
-        ? data.motd.clean
-        : "";
-
-    const partes = clean.split("\n"); // divide en líneas
-
-    L1.textContent = partes[0] || "";
-    L2.textContent = partes[1] || "";
-
+    // mcstatus ya entrega el MOTD con colores y <span> listos
+    motdEl.innerHTML = data.motd.html;
   } catch (e) {
-    L1.textContent = "Error cargando MOTD";
-    L2.textContent = "";
+    motdEl.textContent = "Error cargando MOTD";
     console.error("MOTD error:", e);
   }
 }
+
 
 
 
