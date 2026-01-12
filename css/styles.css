@@ -60,42 +60,12 @@ nav a:hover {
     text-shadow: 0 0 5px #FFD700;
 }
 
-/* Estado del servidor */
-/* Estado del servidor: contenedor de las dos tarjetas */
-.server-wrapper {
-    max-width: 900px;
-    margin: 20px auto 40px auto;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-}
 
-/* Tarjeta visual de cada servidor */
-.server-status {
-    flex: 1 1 260px;
-    max-width: 420px;
-    padding: 20px 24px;
-    border-radius: 18px;
-    background: rgba(0, 0, 0, 0.78);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(12px);
-    text-align: left;
-    font-size: 1rem;
-}
-
-
-
-/* Lista de jugadores conectados */
-/* Lista de jugadores conectados (Java y Bedrock) */
-#player-list-container,
-#player-list-bedrock-container {
-    margin-top: 10px;
-    display: none; /* Se muestran solo si hay jugadores */
-    width: 100%;
-    max-width: 500px;
-    margin: auto;
+/* Título de la lista de jugadores */
+#player-list-container h3,
+#player-list-bedrock-container h3 {
+    font-size: 1.05rem;
+    margin-bottom: 8px;
 }
 
 #player-list,
@@ -604,38 +574,45 @@ a:hover {
 
 
 
+
 /* ===== Mejora visual de la página STATUS ===== */
 
 /* MOTD alineado con las tarjetas */
 .motd-box {
-    max-width: 920px;
-    margin-bottom: 32px;
+    max-width: 960px;
+    margin: 0 auto 32px;
 }
 
 /* Contenedor de las dos tarjetas */
 .server-wrapper {
-    max-width: 920px;
-    margin: 0 auto 40px;
+    max-width: 1050px;
+    margin: 0 auto 45px;
     display: flex;
     flex-wrap: wrap;
-    gap: 24px;
+    gap: 30px;
     justify-content: center;
+    align-items: flex-start;
 }
 
 /* Tarjeta de servidor (Java / Bedrock) */
 .server-status {
     position: relative;
-    flex: 1 1 280px;
-    max-width: 420px;
-    padding: 24px 28px;
-    border-radius: 24px;
+    flex: 1 1 360px;
+    max-width: 480px;
+    padding: 30px 32px;
+    border-radius: 26px;
+
+    /* texto algo más grande */
+    font-size: 1.1rem;
+    line-height: 1.5;
+    text-align: left;
+
     background:
         radial-gradient(circle at top left, rgba(0, 255, 170, 0.12), transparent 55%),
         radial-gradient(circle at bottom right, rgba(0, 180, 255, 0.1), transparent 55%),
         rgba(0, 0, 0, 0.85);
     border: 1px solid rgba(255, 255, 255, 0.10);
     box-shadow: 0 24px 60px rgba(0, 0, 0, 0.9);
-    text-align: left;
 }
 
 /* Línea suave luminosa arriba de la tarjeta */
@@ -651,14 +628,14 @@ a:hover {
 
 /* Tipografía interna */
 .server-status p {
-    margin: 4px 0 10px;
-    line-height: 1.4;
-    font-size: 0.98rem;
+    margin: 6px 0 12px;
+    font-size: 1.08rem;
 }
 
 .server-status p strong {
     display: inline-block;
-    min-width: 90px;  /* alinea las etiquetas: IP, Puerto, etc. */
+    min-width: 120px;  /* alinea IP, Puerto, Estado, etc. */
+    font-size: 1.14rem;
     color: #f8f8f8;
 }
 
@@ -666,6 +643,7 @@ a:hover {
 #status,
 #status-bedrock {
     font-weight: 600;
+    font-size: 1.1rem;
 }
 
 #status::before,
@@ -681,22 +659,33 @@ a:hover {
     vertical-align: middle;
 }
 
-/* Títulos de listas de jugadores (cuando los uses) */
+/* Títulos de listas de jugadores */
 #player-list-container h3,
 #player-list-bedrock-container h3 {
-    margin-top: 14px;
-    font-size: 0.95rem;
-    opacity: 0.85;
+    margin-top: 16px;
+    font-size: 1.02rem;
+    opacity: 0.9;
 }
 
-/* Responsive: en móvil se ven más compactas */
+/* Responsive: en móvil se ven más compactas pero legibles */
 @media (max-width: 768px) {
     .server-wrapper {
-        gap: 16px;
+        gap: 18px;
     }
 
     .server-status {
-        padding: 18px 20px;
+        padding: 22px 20px;
+        max-width: 100%;
+        font-size: 1rem;
+    }
+
+    .server-status p {
+        font-size: 1rem;
+    }
+
+    .server-status p strong {
+        min-width: 105px;
+        font-size: 1.05rem;
     }
 }
 
