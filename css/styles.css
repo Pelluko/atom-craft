@@ -729,5 +729,18 @@ a:hover {
     }
 }
 
+/* === Destacar solo la línea de IP === */
+.server-status p:nth-child(1),
+.server-status p:nth-child(2) {
+    font-size: 1.45rem;        /* Más grande */
+    font-weight: 700;          /* Más fuerte */
+    color: #ffffff;            /* Bien visible */
+    letter-spacing: 0.5px;
+}
+
+/* Opcional: pinta solo la IP con un color sutil */
+.server-status p:nth-child(2) {
+    color: #a8f7ff;           /* Celeste suave */
+}
 
 
