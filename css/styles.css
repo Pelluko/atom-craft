@@ -743,4 +743,10 @@ a:hover {
     color: #a8f7ff;           /* Celeste suave */
 }
 
+/* Quitar solo la bolita grande generada por el CSS */
+#status::before,
+#status-bedrock::before {
+    display: none !important;
+    content: none !important;
+}
 
