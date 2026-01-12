@@ -17,13 +17,13 @@ async function obtenerEstadoServidor() {
 
     if (datos.online) {
       statusEl.textContent = "🟢 Online";
+
       if (datos.players) {
         playersEl.textContent = `${datos.players.online} / ${datos.players.max}`;
       } else {
         playersEl.textContent = "-";
       }
 
-      // version puede ser string (v2) u objeto (v3)
       const version =
         typeof datos.version === "string"
           ? datos.version
@@ -148,11 +148,9 @@ async function obtenerEstadoServidorBedrock() {
   }
 }
 
-
-
 // ===== MOTD GLOBAL (usando HTML de mcstatus.io) =====
 async function obtenerMotd() {
-  // mismo endpoint que ves en la página de mcstatus
+  // mismo endpoint que ves en la página de mcstatus para Java
   const url = "https://api.mcstatus.io/v2/status/java/mc4.papu.host:20201";
 
   const motdEl = document.getElementById("motd-html");
@@ -167,7 +165,7 @@ async function obtenerMotd() {
       return;
     }
 
-    // mcstatus ya entrega el MOTD con colores y <span> listos
+    // mcstatus ya devuelve el MOTD con colores/formato listo
     motdEl.innerHTML = data.motd.html;
   } catch (e) {
     motdEl.textContent = "Error cargando MOTD";
@@ -175,30 +173,27 @@ async function obtenerMotd() {
   }
 }
 
-
-
-
-
-// ===== Copiar IP (se mantiene igual) =====
+// ===== INICIALIZACIÓN GENERAL =====
 document.addEventListener("DOMContentLoaded", () => {
-    // ===== INICIAR JAVA =====
+  // Java
   if (document.getElementById("status")) {
     obtenerEstadoServidor();
     setInterval(obtenerEstadoServidor, 30000);
   }
 
-  // ===== INICIAR BEDROCK =====
+  // Bedrock
   if (document.getElementById("status-bedrock")) {
     obtenerEstadoServidorBedrock();
     setInterval(obtenerEstadoServidorBedrock, 30000);
   }
 
-  // ===== INICIAR MOTD GLOBAL =====
-  if (document.getElementById("motd-line1")) {
+  // MOTD global
+  if (document.getElementById("motd-html")) {
     obtenerMotd();
     setInterval(obtenerMotd, 30000);
   }
 
+  // Copiar IP (Java)
   const ipElement = document.getElementById("ip-servidor");
   const copyMessage = document.getElementById("copy-message");
 
@@ -223,7 +218,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   ipElement.addEventListener("click", async () => {
-    const ipText = ipElement.textContent.trim(); // "atomcraft.papu.host"
+    const ipText = ipElement.textContent.trim();
 
     try {
       if (navigator.clipboard && window.isSecureContext) {
