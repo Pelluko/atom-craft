@@ -604,3 +604,100 @@ a:hover {
 
 
 
+/* ===== Mejora visual de la página STATUS ===== */
+
+/* MOTD alineado con las tarjetas */
+.motd-box {
+    max-width: 920px;
+    margin-bottom: 32px;
+}
+
+/* Contenedor de las dos tarjetas */
+.server-wrapper {
+    max-width: 920px;
+    margin: 0 auto 40px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: center;
+}
+
+/* Tarjeta de servidor (Java / Bedrock) */
+.server-status {
+    position: relative;
+    flex: 1 1 280px;
+    max-width: 420px;
+    padding: 24px 28px;
+    border-radius: 24px;
+    background:
+        radial-gradient(circle at top left, rgba(0, 255, 170, 0.12), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(0, 180, 255, 0.1), transparent 55%),
+        rgba(0, 0, 0, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.9);
+    text-align: left;
+}
+
+/* Línea suave luminosa arriba de la tarjeta */
+.server-status::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    border-top: 1px solid rgba(0, 255, 190, 0.45);
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* Tipografía interna */
+.server-status p {
+    margin: 4px 0 10px;
+    line-height: 1.4;
+    font-size: 0.98rem;
+}
+
+.server-status p strong {
+    display: inline-block;
+    min-width: 90px;  /* alinea las etiquetas: IP, Puerto, etc. */
+    color: #f8f8f8;
+}
+
+/* Estado con “bolita” verde */
+#status,
+#status-bedrock {
+    font-weight: 600;
+}
+
+#status::before,
+#status-bedrock::before {
+    content: "";
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-right: 6px;
+    border-radius: 999px;
+    background: #2ecc71;
+    box-shadow: 0 0 10px #2ecc71;
+    vertical-align: middle;
+}
+
+/* Títulos de listas de jugadores (cuando los uses) */
+#player-list-container h3,
+#player-list-bedrock-container h3 {
+    margin-top: 14px;
+    font-size: 0.95rem;
+    opacity: 0.85;
+}
+
+/* Responsive: en móvil se ven más compactas */
+@media (max-width: 768px) {
+    .server-wrapper {
+        gap: 16px;
+    }
+
+    .server-status {
+        padding: 18px 20px;
+    }
+}
+
+
