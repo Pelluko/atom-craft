@@ -533,3 +533,21 @@ a:hover {
 /* (opcional) placeholder del buscador más visible */
 #ac-search::placeholder { color: var(--ac-sub); opacity: .9; }
 
+.motd-box {
+    background: #000;
+    padding: 12px 20px;
+    border-radius: 8px;
+    margin: 0 auto 20px auto;
+    max-width: 650px;
+    font-family: Consolas, monospace;
+    box-shadow: 0 0 15px rgba(0,0,0,0.8);
+    border: 2px solid #222;
+    text-align: center;
+}
+.motd-box p {
+    margin: 4px 0;
+    font-weight: bold;
+    color: #ffeb3b;
+}
+
+
