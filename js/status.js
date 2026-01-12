@@ -148,6 +148,40 @@ async function obtenerEstadoServidorBedrock() {
   }
 }
 
+
+
+// ===== MOTD GLOBAL =====
+async function obtenerMotd() {
+  const url = "https://api.mcstatus.io/v2/status/bedrock/mc4.papu.host:20201";
+
+  const L1 = document.getElementById("motd-line1");
+  const L2 = document.getElementById("motd-line2");
+
+  if (!L1) return;
+
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+
+    if (!data.online) {
+      L1.textContent = "Servidor Offline";
+      L2.textContent = "";
+      return;
+    }
+
+    const lines = data.motd?.clean || [];
+    L1.textContent = lines[0] || "";
+    L2.textContent = lines[1] || "";
+
+  } catch (e) {
+    L1.textContent = "Error cargando MOTD";
+    L2.textContent = "";
+    console.error("MOTD error:", e);
+  }
+}
+
+
+
 // Ejecutar Java si existe el cuadro Java
 if (document.getElementById("status")) {
   obtenerEstadoServidor();
