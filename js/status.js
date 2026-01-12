@@ -182,20 +182,26 @@ async function obtenerMotd() {
 
 
 
-// Ejecutar Java si existe el cuadro Java
-if (document.getElementById("status")) {
-  obtenerEstadoServidor();
-  setInterval(obtenerEstadoServidor, 30000);
-}
-
-// Ejecutar Bedrock si existe el cuadro Bedrock
-if (document.getElementById("status-bedrock")) {
-  obtenerEstadoServidorBedrock();
-  setInterval(obtenerEstadoServidorBedrock, 30000);
-}
-
 // ===== Copiar IP (se mantiene igual) =====
 document.addEventListener("DOMContentLoaded", () => {
+    // ===== INICIAR JAVA =====
+  if (document.getElementById("status")) {
+    obtenerEstadoServidor();
+    setInterval(obtenerEstadoServidor, 30000);
+  }
+
+  // ===== INICIAR BEDROCK =====
+  if (document.getElementById("status-bedrock")) {
+    obtenerEstadoServidorBedrock();
+    setInterval(obtenerEstadoServidorBedrock, 30000);
+  }
+
+  // ===== INICIAR MOTD GLOBAL =====
+  if (document.getElementById("motd-line1")) {
+    obtenerMotd();
+    setInterval(obtenerMotd, 30000);
+  }
+
   const ipElement = document.getElementById("ip-servidor");
   const copyMessage = document.getElementById("copy-message");
 
