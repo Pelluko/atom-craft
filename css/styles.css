@@ -690,3 +690,44 @@ a:hover {
 }
 
 
+/* ==== Chips / Tiritas JAVA + BEDROCK ==== */
+.tag {
+    position: absolute;
+    top: -14px;
+    left: 20px;
+    padding: 4px 12px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: 1px solid rgba(255,255,255,0.25);
+    box-shadow: 0 0 8px rgba(0,0,0,0.6);
+}
+
+/* JAVA: verde */
+.tag-java {
+    background: rgba(0, 255, 140, 0.25);
+    color: #6affc1;
+    border-color: rgba(0,255,160,0.35);
+}
+
+/* BEDROCK: azul */
+.tag-bedrock {
+    background: rgba(0, 200, 255, 0.25);
+    color: #77d8ff;
+    border-color: rgba(0,220,255,0.35);
+}
+
+/* Ajuste responsivo */
+@media (max-width: 768px) {
+    .tag {
+        top: -12px;
+        left: 15px;
+        padding: 3px 10px;
+        font-size: 0.78rem;
+    }
+}
+
+
+
