@@ -551,3 +551,28 @@ a:hover {
 }
 
 
+.motd-box {
+    position: relative;
+    padding: 10px 40px;
+    margin: 0 auto 20px auto;
+    max-width: 650px;
+    font-family: Consolas, monospace;
+    text-align: center;
+
+    /* Fondo “barra” estilo MC */
+    background: linear-gradient(#000000, #151515);
+    border-radius: 6px;
+    border: 2px solid #3f3f3f;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.9);
+}
+
+.motd-box p {
+    margin: 3px 0;
+    font-weight: bold;
+    color: #ffeb3b;
+    text-shadow: 0 0 4px #000;
+}
+
+
+
+
