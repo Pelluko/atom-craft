@@ -6,6 +6,7 @@ async function obtenerEstadoYJugadores() {
   try {
     const respuesta = await fetch(url);
     const datos = await respuesta.json();
+    console.log("Datos recibidos de la API:", datos);
 
     // Elementos JAVA
     const statusJavaEl = document.getElementById("status");
