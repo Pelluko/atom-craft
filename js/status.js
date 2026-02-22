@@ -1,132 +1,154 @@
-// ===== ESTADO DEL SERVIDOR Y JUGADORES (Unificado) =====
-async function obtenerEstadoYJugadores() {
-  // ⚠️ Volvemos a tu URL original sin el puerto
+// ===== ESTADO JAVA =====
+async function obtenerEstadoJava() {
   const url = "https://api.mcsrvstat.us/2/atomcraft.papu.host";
-
   try {
     const respuesta = await fetch(url);
     const datos = await respuesta.json();
-    console.log("Datos recibidos de la API:", datos);
 
-    // Elementos JAVA
-    const statusJavaEl = document.getElementById("status");
-    const playersJavaEl = document.getElementById("players");
-    const versionJavaEl = document.getElementById("version");
-    const playerListContainerJava = document.getElementById("player-list-container");
-    const playerListJava = document.getElementById("player-list");
-
-    // Elementos BEDROCK
-    const statusBedrockEl = document.getElementById("status-bedrock");
-    const playersBedrockEl = document.getElementById("players-bedrock");
-    const versionBedrockEl = document.getElementById("version-bedrock");
-    const playerListContainerBedrock = document.getElementById("player-list-bedrock-container");
-    const playerListBedrock = document.getElementById("player-list-bedrock");
-
-    if (!statusJavaEl || !statusBedrockEl) return;
+    const statusEl = document.getElementById("status");
+    const playersEl = document.getElementById("players");
+    const versionEl = document.getElementById("version");
+    const listContainer = document.getElementById("player-list-container");
+    const listEl = document.getElementById("player-list");
 
     if (datos.online) {
-      statusJavaEl.innerHTML = "🟢 Online";
-      statusBedrockEl.innerHTML = "🟢 Online";
-
+      statusEl.innerHTML = "🟢 Online";
+      
       const version = typeof datos.version === "string" ? datos.version : (datos.version && typeof datos.version.name === "string" ? datos.version.name : "Desconocida");
-      versionJavaEl.textContent = version;
-      versionBedrockEl.textContent = version;
+      versionEl.textContent = version;
 
-      let javaCount = 0;
-      let bedrockCount = 0;
+      let onlineCount = datos.players ? datos.players.online : 0;
+      let maxCount = datos.players ? datos.players.max : 0;
+      playersEl.textContent = `${onlineCount} / ${maxCount}`;
 
-      if (playerListJava && playerListBedrock) {
-        playerListJava.innerHTML = "";
-        playerListBedrock.innerHTML = "";
+      listEl.innerHTML = "";
+      if (datos.players && datos.players.list && datos.players.list.length > 0) {
+        datos.players.list.forEach(player => {
+          const li = document.createElement("li");
+          const img = document.createElement("img");
+          img.src = `https://minotar.net/avatar/${encodeURIComponent(player)}/32.png`;
+          img.classList.add("player-avatar");
+          img.style.verticalAlign = "middle";
+          img.style.marginRight = "8px";
+          img.style.borderRadius = "3px";
+          img.style.width = "20px";
 
-        if (datos.players && Array.isArray(datos.players.list) && datos.players.list.length > 0) {
-          datos.players.list.forEach((player) => {
-            const nombre = typeof player === "string" ? player : player.name || "Jugador";
-            const esBedrock = nombre.startsWith("."); // Detectamos el punto de Geyser
-            
-            const li = document.createElement("li");
-            const img = document.createElement("img");
-            
-            const nombreLimpio = nombre.replace(".", ""); // Limpiamos el punto para la imagen
-            img.src = `https://minotar.net/avatar/${encodeURIComponent(nombreLimpio)}/32.png`;
-            img.alt = `Skin de ${nombre}`;
-            img.classList.add("player-avatar");
+          const span = document.createElement("span");
+          span.textContent = ` ${player}`;
 
-            const span = document.createElement("span");
-            span.textContent = ` ${nombre}`;
-
-            li.appendChild(img);
-            li.appendChild(span);
-
-            if (esBedrock) {
-              playerListBedrock.appendChild(li);
-              bedrockCount++;
-            } else {
-              playerListJava.appendChild(li);
-              javaCount++;
-            }
-          });
-        }
-
-        if (playerListContainerJava) playerListContainerJava.style.display = javaCount > 0 ? "block" : "none";
-        if (playerListContainerBedrock) playerListContainerBedrock.style.display = bedrockCount > 0 ? "block" : "none";
+          li.appendChild(img);
+          li.appendChild(span);
+          listEl.appendChild(li);
+        });
+        listContainer.style.display = "block";
+      } else {
+        listContainer.style.display = "none";
       }
-
-      playersJavaEl.textContent = `${javaCount} / ${datos.players.max}`;
-      playersBedrockEl.textContent = `${bedrockCount} / ${datos.players.max}`;
-
     } else {
-      statusJavaEl.textContent = "🔴 Offline";
-      statusBedrockEl.textContent = "🔴 Offline";
-      playersJavaEl.textContent = "-";
-      playersBedrockEl.textContent = "-";
-      versionJavaEl.textContent = "-";
-      versionBedrockEl.textContent = "-";
-      if (playerListContainerJava) playerListContainerJava.style.display = "none";
-      if (playerListContainerBedrock) playerListContainerBedrock.style.display = "none";
+      statusEl.textContent = "🔴 Offline";
+      playersEl.textContent = "-";
+      versionEl.textContent = "-";
+      listContainer.style.display = "none";
     }
   } catch (error) {
-    if (document.getElementById("status")) document.getElementById("status").textContent = "⚠️ Error al obtener datos";
-    if (document.getElementById("status-bedrock")) document.getElementById("status-bedrock").textContent = "⚠️ Error al obtener datos";
-    console.error("Error en la solicitud de estado:", error);
+    console.error("Error Java:", error);
+  }
+}
+
+// ===== ESTADO BEDROCK =====
+async function obtenerEstadoBedrock() {
+  // Usamos tu URL específica de Bedrock
+  const url = "https://api.mcsrvstat.us/bedrock/3/mc4.papu.host:20201";
+  try {
+    const respuesta = await fetch(url);
+    const datos = await respuesta.json();
+
+    const statusEl = document.getElementById("status-bedrock");
+    const playersEl = document.getElementById("players-bedrock");
+    const versionEl = document.getElementById("version-bedrock");
+    const listContainer = document.getElementById("player-list-bedrock-container");
+    const listEl = document.getElementById("player-list-bedrock");
+
+    if (datos.online) {
+      statusEl.innerHTML = "🟢 Online";
+      
+      const version = typeof datos.version === "string" ? datos.version : (datos.version && typeof datos.version.name === "string" ? datos.version.name : "Desconocida");
+      versionEl.textContent = version;
+
+      let onlineCount = datos.players ? datos.players.online : 0;
+      let maxCount = datos.players ? datos.players.max : 0;
+      playersEl.textContent = `${onlineCount} / ${maxCount}`;
+
+      listEl.innerHTML = "";
+      // Verificamos si la API de Bedrock nos entrega la lista
+      if (datos.players && datos.players.list && datos.players.list.length > 0) {
+        datos.players.list.forEach(player => {
+          const nombre = typeof player === "string" ? player : player.name || "Jugador";
+          
+          const li = document.createElement("li");
+          const img = document.createElement("img");
+          
+          // Limpiamos caracteres especiales para intentar buscar la skin
+          const nombreLimpio = nombre.replace(/[^a-zA-Z0-9_]/g, '');
+          img.src = `https://minotar.net/avatar/${encodeURIComponent(nombreLimpio)}/32.png`;
+          img.classList.add("player-avatar");
+          img.style.verticalAlign = "middle";
+          img.style.marginRight = "8px";
+          img.style.borderRadius = "3px";
+          img.style.width = "20px";
+
+          const span = document.createElement("span");
+          span.textContent = ` ${nombre}`;
+
+          li.appendChild(img);
+          li.appendChild(span);
+          listEl.appendChild(li);
+        });
+        listContainer.style.display = "block";
+      } else {
+        listContainer.style.display = "none";
+      }
+    } else {
+      statusEl.textContent = "🔴 Offline";
+      playersEl.textContent = "-";
+      versionEl.textContent = "-";
+      listContainer.style.display = "none";
+    }
+  } catch (error) {
+    console.error("Error Bedrock:", error);
   }
 }
 
 // ===== MOTD GLOBAL =====
 async function obtenerMotd() {
-  // ⚠️ Volvemos a tu nodo directo (mc4)
   const url = "https://api.mcstatus.io/v2/status/java/mc4.papu.host:20201";
-
   const motdEl = document.getElementById("motd-html");
   if (!motdEl) return;
 
   try {
     const res = await fetch(url);
     const data = await res.json();
-
     if (!data.online || !data.motd || !data.motd.html) {
       motdEl.textContent = "Servidor Offline";
       return;
     }
-
     motdEl.innerHTML = data.motd.html;
   } catch (e) {
     motdEl.textContent = "Error cargando MOTD";
-    console.error("MOTD error:", e);
   }
 }
 
 // ===== INICIALIZACIÓN GENERAL =====
 document.addEventListener("DOMContentLoaded", () => {
-  obtenerEstadoYJugadores();
-  setInterval(obtenerEstadoYJugadores, 30000);
+  obtenerEstadoJava();
+  obtenerEstadoBedrock();
+  obtenerMotd();
 
-  if (document.getElementById("motd-html")) {
-    obtenerMotd();
-    setInterval(obtenerMotd, 30000);
-  }
+  setInterval(obtenerEstadoJava, 30000);
+  setInterval(obtenerEstadoBedrock, 30000);
+  setInterval(obtenerMotd, 30000);
 
-  // Copiar IP
+  // Sistema de copiar IP
   const ipElement = document.getElementById("ip-servidor");
   const copyMessage = document.getElementById("copy-message");
 
@@ -160,12 +182,8 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       showCopied();
     } catch (err) {
-      try {
-        fallbackCopy(ipText);
-        showCopied();
-      } catch (e) {
-        console.error("Error al copiar:", err);
-      }
+      fallbackCopy(ipText);
+      showCopied();
     }
   });
 });
