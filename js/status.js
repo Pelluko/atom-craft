@@ -1,6 +1,6 @@
-// ===== ESTADO DEL SERVIDOR Y JUGADORES (Unificado) =====
+// ===== ESTADO DEL SERVIDOR Y JUGADORES (Unificado y Corregido) =====
 async function obtenerEstadoYJugadores() {
-  // Solo necesitamos consultar la API de Java, ¡porque trae toda la info!
+  // Consultamos la API de Java que contiene toda la info (info.clean y players.list)
   const url = "https://api.mcsrvstat.us/2/atomcraft.papu.host";
 
   try {
@@ -36,21 +36,22 @@ async function obtenerEstadoYJugadores() {
         playerListJava.innerHTML = "";
         playerListBedrock.innerHTML = "";
 
-        // === 1. EXTRAER JUGADORES JAVA ===
+        // === 1. EXTRAER JUGADORES JAVA (Desde players.list) ===
         if (datos.players && Array.isArray(datos.players.list)) {
           datos.players.list.forEach((player) => {
             const nombre = typeof player === "string" ? player : player.name || "Jugador";
-            // Si no tiene punto, va a Java
+            // Si NO tiene punto, va a Java
             if (!nombre.startsWith(".")) {
               javaCount++;
               const li = document.createElement("li");
-              li.innerHTML = `<img src="https://minotar.net/avatar/${encodeURIComponent(nombre)}/32.png" class="player-avatar" style="vertical-align: middle; margin-right: 8px; border-radius: 3px; width: 20px;"> <span>${nombre}</span>`;
+              // CORRECCIÓN AQUÍ: Se añadieron width y height fijos para evitar deformación
+              li.innerHTML = `<img src="https://minotar.net/avatar/${encodeURIComponent(nombre)}/32.png" class="player-avatar" style="vertical-align: middle; margin-right: 8px; border-radius: 3px; width: 24px; height: 24px; object-fit: cover;"> <span>${nombre}</span>`;
               playerListJava.appendChild(li);
             }
           });
         }
 
-        // === 2. EXTRAER JUGADORES BEDROCK (Desde la propiedad 'info') ===
+        // === 2. EXTRAER JUGADORES BEDROCK (Desde la propiedad info.clean) ===
         if (datos.info && Array.isArray(datos.info.clean)) {
           datos.info.clean.forEach((linea) => {
             const nombre = linea.trim();
@@ -59,7 +60,8 @@ async function obtenerEstadoYJugadores() {
               bedrockCount++;
               const nombreLimpio = nombre.replace(".", ""); // Quitamos punto para buscar su skin
               const li = document.createElement("li");
-              li.innerHTML = `<img src="https://minotar.net/avatar/${encodeURIComponent(nombreLimpio)}/32.png" class="player-avatar" style="vertical-align: middle; margin-right: 8px; border-radius: 3px; width: 20px;"> <span>${nombre}</span>`;
+              // CORRECCIÓN AQUÍ: Se añadieron width y height fijos para evitar deformación
+              li.innerHTML = `<img src="https://minotar.net/avatar/${encodeURIComponent(nombreLimpio)}/32.png" class="player-avatar" style="vertical-align: middle; margin-right: 8px; border-radius: 3px; width: 24px; height: 24px; object-fit: cover;"> <span>${nombre}</span>`;
               playerListBedrock.appendChild(li);
             }
           });
@@ -75,6 +77,7 @@ async function obtenerEstadoYJugadores() {
       playersBedrockEl.textContent = `${bedrockCount} / ${maxCount}`;
 
     } else {
+      // Si está offline
       statusJavaEl.textContent = "🔴 Offline";
       statusBedrockEl.textContent = "🔴 Offline";
       playersJavaEl.textContent = "-";
