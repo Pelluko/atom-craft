@@ -1,49 +1,56 @@
-// ===== JAVA EDITION =====
-async function obtenerEstadoServidor() {
-  const url = "https://api.mcsrvstat.us/2/atomcraft.papu.host";
+// ===== ESTADO DEL SERVIDOR Y JUGADORES (Unificado) =====
+// Hacemos una sola llamada a la API porque Geyser junta a todos los jugadores aquí.
+async function obtenerEstadoYJugadores() {
+  const url = "https://api.mcsrvstat.us/2/atomcraft.papu.host:20201";
 
   try {
     const respuesta = await fetch(url);
     const datos = await respuesta.json();
 
-    // Elementos del cuadro JAVA
-    const statusEl = document.getElementById("status");
-    const playersEl = document.getElementById("players");
-    const versionEl = document.getElementById("version");
-    const playerListContainer = document.getElementById("player-list-container");
-    const playerList = document.getElementById("player-list");
+    // Elementos JAVA
+    const statusJavaEl = document.getElementById("status");
+    const playersJavaEl = document.getElementById("players");
+    const versionJavaEl = document.getElementById("version");
+    const playerListContainerJava = document.getElementById("player-list-container");
+    const playerListJava = document.getElementById("player-list");
 
-    if (!statusEl || !playersEl || !versionEl) return;
+    // Elementos BEDROCK
+    const statusBedrockEl = document.getElementById("status-bedrock");
+    const playersBedrockEl = document.getElementById("players-bedrock");
+    const versionBedrockEl = document.getElementById("version-bedrock");
+    const playerListContainerBedrock = document.getElementById("player-list-bedrock-container");
+    const playerListBedrock = document.getElementById("player-list-bedrock");
+
+    if (!statusJavaEl || !statusBedrockEl) return;
 
     if (datos.online) {
-      statusEl.textContent = "🟢 Online";
+      // Estado Online para ambos
+      statusJavaEl.textContent = "🟢 Online";
+      statusBedrockEl.textContent = "🟢 Online";
 
-      if (datos.players) {
-        playersEl.textContent = `${datos.players.online} / ${datos.players.max}`;
-      } else {
-        playersEl.textContent = "-";
-      }
+      // Versión (usamos la misma base)
+      const version = typeof datos.version === "string" ? datos.version : (datos.version && typeof datos.version.name === "string" ? datos.version.name : "Desconocida");
+      versionJavaEl.textContent = version;
+      versionBedrockEl.textContent = version;
 
-      const version =
-        typeof datos.version === "string"
-          ? datos.version
-          : datos.version && typeof datos.version.name === "string"
-          ? datos.version.name
-          : "Desconocida";
-      versionEl.textContent = version;
+      let javaCount = 0;
+      let bedrockCount = 0;
 
-      if (playerListContainer && playerList) {
-        playerList.innerHTML = "";
+      if (playerListJava && playerListBedrock) {
+        playerListJava.innerHTML = "";
+        playerListBedrock.innerHTML = "";
 
         if (datos.players && Array.isArray(datos.players.list) && datos.players.list.length > 0) {
           datos.players.list.forEach((player) => {
-            const nombre =
-              typeof player === "string" ? player : player.name || "Jugador";
-
+            const nombre = typeof player === "string" ? player : player.name || "Jugador";
+            const esBedrock = nombre.startsWith("."); // Identificamos si es de Bedrock
+            
             const li = document.createElement("li");
-
             const img = document.createElement("img");
-            img.src = `https://minotar.net/avatar/${encodeURIComponent(nombre)}/32.png`;
+            
+            // Le quitamos el punto al nombre para que Minotar pueda intentar buscar la skin
+            const nombreLimpio = nombre.replace(".", "");
+            img.src = `https://minotar.net/avatar/${encodeURIComponent(nombreLimpio)}/32.png`;
             img.alt = `Skin de ${nombre}`;
             img.classList.add("player-avatar");
 
@@ -52,106 +59,48 @@ async function obtenerEstadoServidor() {
 
             li.appendChild(img);
             li.appendChild(span);
-            playerList.appendChild(li);
-          });
 
-          playerListContainer.style.display = "block";
-        } else {
-          playerListContainer.style.display = "none";
+            // Filtramos a qué lista va
+            if (esBedrock) {
+              playerListBedrock.appendChild(li);
+              bedrockCount++;
+            } else {
+              playerListJava.appendChild(li);
+              javaCount++;
+            }
+          });
         }
+
+        // Mostrar u ocultar contenedores de listas según si hay jugadores
+        if (playerListContainerJava) playerListContainerJava.style.display = javaCount > 0 ? "block" : "none";
+        if (playerListContainerBedrock) playerListContainerBedrock.style.display = bedrockCount > 0 ? "block" : "none";
       }
+
+      // Actualizar los contadores de texto
+      playersJavaEl.textContent = `${javaCount} / ${datos.players.max}`;
+      playersBedrockEl.textContent = `${bedrockCount} / ${datos.players.max}`;
+
     } else {
-      statusEl.textContent = "🔴 Offline";
-      playersEl.textContent = "-";
-      versionEl.textContent = "-";
-      if (playerListContainer) playerListContainer.style.display = "none";
+      // Offline
+      statusJavaEl.textContent = "🔴 Offline";
+      statusBedrockEl.textContent = "🔴 Offline";
+      playersJavaEl.textContent = "-";
+      playersBedrockEl.textContent = "-";
+      versionJavaEl.textContent = "-";
+      versionBedrockEl.textContent = "-";
+      if (playerListContainerJava) playerListContainerJava.style.display = "none";
+      if (playerListContainerBedrock) playerListContainerBedrock.style.display = "none";
     }
   } catch (error) {
-    const statusEl = document.getElementById("status");
-    if (statusEl) statusEl.textContent = "⚠️ Error al obtener datos";
-    console.error("Error en la solicitud de estado del servidor (Java):", error);
-  }
-}
-
-// ===== BEDROCK EDITION =====
-async function obtenerEstadoServidorBedrock() {
-  const url = "https://api.mcsrvstat.us/bedrock/3/mc4.papu.host:20201";
-
-  try {
-    const respuesta = await fetch(url);
-    const datos = await respuesta.json();
-
-    // Elementos del cuadro BEDROCK
-    const statusEl = document.getElementById("status-bedrock");
-    const playersEl = document.getElementById("players-bedrock");
-    const versionEl = document.getElementById("version-bedrock");
-    const playerListContainer = document.getElementById("player-list-bedrock-container");
-    const playerList = document.getElementById("player-list-bedrock");
-
-    if (!statusEl || !playersEl || !versionEl) return;
-
-    if (datos.online) {
-      statusEl.textContent = "🟢 Online";
-
-      if (datos.players && typeof datos.players.online === "number") {
-        playersEl.textContent = `${datos.players.online} / ${datos.players.max}`;
-      } else {
-        playersEl.textContent = "-";
-      }
-
-      const version =
-        typeof datos.version === "string"
-          ? datos.version
-          : datos.version && typeof datos.version.name === "string"
-          ? datos.version.name
-          : "Desconocida";
-      versionEl.textContent = version;
-
-      if (playerListContainer && playerList) {
-        playerList.innerHTML = "";
-
-        if (datos.players && Array.isArray(datos.players.list) && datos.players.list.length > 0) {
-          datos.players.list.forEach((player) => {
-            const nombre =
-              typeof player === "string" ? player : player.name || "Jugador";
-
-            const li = document.createElement("li");
-
-            const img = document.createElement("img");
-            img.src = `https://minotar.net/avatar/${encodeURIComponent(nombre)}/32.png`;
-            img.alt = `Skin de ${nombre}`;
-            img.classList.add("player-avatar");
-
-            const span = document.createElement("span");
-            span.textContent = ` ${nombre}`;
-
-            li.appendChild(img);
-            li.appendChild(span);
-            playerList.appendChild(li);
-          });
-
-          playerListContainer.style.display = "block";
-        } else {
-          playerListContainer.style.display = "none";
-        }
-      }
-    } else {
-      statusEl.textContent = "🔴 Offline";
-      playersEl.textContent = "-";
-      versionEl.textContent = "-";
-      if (playerListContainer) playerListContainer.style.display = "none";
-    }
-  } catch (error) {
-    const statusEl = document.getElementById("status-bedrock");
-    if (statusEl) statusEl.textContent = "⚠️ Error al obtener datos";
-    console.error("Error en la solicitud de estado del servidor (Bedrock):", error);
+    if (document.getElementById("status")) document.getElementById("status").textContent = "⚠️ Error al obtener datos";
+    if (document.getElementById("status-bedrock")) document.getElementById("status-bedrock").textContent = "⚠️ Error al obtener datos";
+    console.error("Error en la solicitud de estado del servidor:", error);
   }
 }
 
 // ===== MOTD GLOBAL (usando HTML de mcstatus.io) =====
 async function obtenerMotd() {
-  // mismo endpoint que ves en la página de mcstatus para Java
-  const url = "https://api.mcstatus.io/v2/status/java/mc4.papu.host:20201";
+  const url = "https://api.mcstatus.io/v2/status/java/atomcraft.papu.host:20201";
 
   const motdEl = document.getElementById("motd-html");
   if (!motdEl) return;
@@ -165,7 +114,6 @@ async function obtenerMotd() {
       return;
     }
 
-    // mcstatus ya devuelve el MOTD con colores/formato listo
     motdEl.innerHTML = data.motd.html;
   } catch (e) {
     motdEl.textContent = "Error cargando MOTD";
@@ -175,17 +123,9 @@ async function obtenerMotd() {
 
 // ===== INICIALIZACIÓN GENERAL =====
 document.addEventListener("DOMContentLoaded", () => {
-  // Java
-  if (document.getElementById("status")) {
-    obtenerEstadoServidor();
-    setInterval(obtenerEstadoServidor, 30000);
-  }
-
-  // Bedrock
-  if (document.getElementById("status-bedrock")) {
-    obtenerEstadoServidorBedrock();
-    setInterval(obtenerEstadoServidorBedrock, 30000);
-  }
+  // Ejecutamos la función unificada
+  obtenerEstadoYJugadores();
+  setInterval(obtenerEstadoYJugadores, 30000);
 
   // MOTD global
   if (document.getElementById("motd-html")) {
@@ -193,7 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setInterval(obtenerMotd, 30000);
   }
 
-  // Copiar IP (Java)
+  // Copiar IP (Java) - ¡Intacto!
   const ipElement = document.getElementById("ip-servidor");
   const copyMessage = document.getElementById("copy-message");
 
