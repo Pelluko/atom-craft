@@ -749,3 +749,127 @@ a:hover {
     display: none !important;
     content: none !important;
 }
+
+
+
+
+/* =========================================
+   ESTILOS EXCLUSIVOS PARA LAS TARJETAS VIP
+========================================= */
+
+/* Contenedor flexible para alinear las tarjetas */
+.vip-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 40px;
+    margin-bottom: 60px;
+}
+
+/* Diseño de cada tarjeta VIP individual */
+.vip-card {
+    background: rgba(20, 20, 25, 0.85); /* Fondo oscuro y semitransparente */
+    backdrop-filter: blur(10px); /* Efecto de vidrio esmerilado */
+    -webkit-backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.1); /* Borde sutil */
+    border-radius: 20px; /* Bordes redondeados */
+    padding: 25px;
+    width: 320px; /* Ancho fijo para uniformidad */
+    text-align: left;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Sombra para profundidad */
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column; /* Para alinear el botón al final */
+}
+
+/* Efecto al pasar el mouse sobre la tarjeta */
+.vip-card:hover {
+    transform: translateY(-10px); /* Se eleva */
+    border-color: rgba(0, 255, 0, 0.6); /* Borde verde brillante */
+    box-shadow: 0 15px 40px rgba(0, 255, 0, 0.3); /* Sombra verde */
+}
+
+/* Título del Rango (ej: Vip-Coal) */
+.vip-card h3 {
+    font-size: 1.8em;
+    margin: 0 0 15px 0;
+    color: #ffffff;
+    border-bottom: 2px solid rgba(0, 255, 0, 0.4); /* Línea verde debajo */
+    padding-bottom: 10px;
+    display: flex;
+    align-items: center;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Precio y Duración */
+.vip-card p {
+    margin: 8px 0;
+    font-size: 15px;
+    color: #cccccc;
+}
+
+.vip-card p strong {
+    color: #ffffff;
+    font-weight: 700;
+}
+
+/* Lista de Beneficios */
+.vip-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 25px 0;
+    flex-grow: 1; /* Empuja el botón hacia abajo */
+}
+
+.vip-card li {
+    margin-bottom: 12px;
+    font-size: 14px;
+    color: #e0e0e0;
+    display: flex;
+    align-items: flex-start;
+    line-height: 1.4;
+}
+
+/* Icono antes de cada beneficio */
+.vip-card li::before {
+    content: '✨';
+    margin-right: 10px;
+    font-size: 14px;
+    color: #00ff00;
+}
+
+/* Botón de Compra */
+.buy-button {
+    display: block;
+    width: 100%;
+    padding: 15px 0;
+    text-align: center;
+    background: linear-gradient(135deg, #00b300, #00ff00); /* Gradiente verde */
+    color: #002200;
+    font-weight: 900;
+    text-decoration: none;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 255, 0, 0.4);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 16px;
+    margin-top: auto; /* Asegura que esté al final de la tarjeta */
+}
+
+/* Efecto al pasar el mouse sobre el botón */
+.buy-button:hover {
+    background: linear-gradient(135deg, #00ff00, #33ff33);
+    box-shadow: 0 8px 25px rgba(0, 255, 0, 0.6);
+    transform: scale(1.05); /* Crece ligeramente */
+    color: #000;
+}
+
+/* Ajuste para pantallas pequeñas */
+@media (max-width: 768px) {
+    .vip-card {
+        width: 90%; /* Ocupa casi todo el ancho en móviles */
+        max-width: 400px;
+    }
+}
