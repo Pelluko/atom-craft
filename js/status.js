@@ -73,8 +73,10 @@ async function obtenerEstadoYJugadores() {
 
       // Actualizar contadores totales
       const maxCount = datos.players ? datos.players.max : 69;
-      playersJavaEl.textContent = `${javaCount} / ${maxCount}`;
-      playersBedrockEl.textContent = `${bedrockCount} / ${maxCount}`;
+      const totalConectados = javaCount + bedrockCount; // Sumamos ambos lados
+      
+      playersJavaEl.textContent = `${totalConectados} / ${maxCount}`;
+      playersBedrockEl.textContent = `${totalConectados} / ${maxCount}`;
 
     } else {
       // Si está offline
