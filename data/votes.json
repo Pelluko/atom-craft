@@ -6,7 +6,7 @@
         { "name": "V3rgilDmc3", "votos": 112 },
         { "name": "fedeterre", "votos": 80 },
         { "name": "MissHidra", "votos": 20 },
-        { "name": "Pelluk0", "votos": 15 }
+        { "name": "Pelluk0", "votos": 15 },
         { "name": "jujula", "votos": 6 }
       ]
     },
@@ -17,7 +17,7 @@
       "players": [
         { "name": "V3rgilDmc3", "votos": 125 },
         { "name": "fedeterre", "votos": 123 },
-        { "name": "jujula", "votos": 33 }
+        { "name": "jujula", "votos": 33 },
         { "name": "Pelluk0", "votos": 21 },
         { "name": "topoyiyo", "votos": 17 }
       ]
@@ -29,7 +29,7 @@
       "players": [
         { "name": "fedeterre", "votos": 28 },
         { "name": "jujula", "votos": 24 },
-        { "name": "DelayPacquiao", "votos": 18 }
+        { "name": "DelayPacquiao", "votos": 18 },
         { "name": "RPlayThings", "votos": 12 },
         { "name": "V3rgilDmc3", "votos": 2 }
       ]
