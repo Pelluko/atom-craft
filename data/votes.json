@@ -1,10 +1,21 @@
 {
-  "updatedAt": "2025-11-01T12:00:00Z",
-  "players": [
-    { "name": "V3rgilDmc3", "votes_all": 112 },
-    { "name": "fedeterre", "votes_all": 80 },
-    { "name": "MissHidra", "votes_all": 20 },
-    { "name": "Pelluk0", "votes_all": 15 }
+  "historial": [
+    {
+      "mes": "Abril 2026",
+      "players": [
+        { "name": "V3rgilDmc3", "votos": 112 },
+        { "name": "fedeterre", "votos": 80 },
+        { "name": "MissHidra", "votos": 20 },
+        { "name": "Pelluk0", "votos": 15 }
+      ]
+    },
+    {
+      "mes": "Marzo 2026",
+      "players": [
+        { "name": "fedeterre", "votos": 95 },
+        { "name": "V3rgilDmc3", "votos": 90 },
+        { "name": "Pelluk0", "votos": 30 }
+      ]
+    }
   ]
 }
-
