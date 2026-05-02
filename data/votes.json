@@ -1,9 +1,9 @@
 {
   "updatedAt": "2025-11-01T12:00:00Z",
   "players": [
-    { "name": "V3rgilDmc3", "votes_all": 112, "votes_month": 29, "votes_week": 6, "delta_week": 0, "streak": 4 },
-    { "name": "fedeterre", "votes_all": 80, "votes_month": 22, "votes_week": 4, "delta_week": 2, "streak": 3 },
-    { "name": "MissHidra", "votes_all": 20, "votes_month": 15, "votes_week": 2, "delta_week": 1, "streak": 2 },
+    { "name": "V3rgilDmc3", "votes_all": 112 },
+    { "name": "fedeterre", "votes_all": 80 },
+    { "name": "MissHidra", "votes_all": 20 },
     { "name": "Pelluk0", "votes_all": 15 }
   ]
 }
