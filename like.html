@@ -306,6 +306,53 @@
         .likes-box ul li a:hover { background: #ff6600; transform: scale(1.05); }
     </style>
 
+
+
+   <!-- SCRIPT PARA EL CONTADOR DE LIKES / VISITAS -->
+  <script src="https://cdn.jsdelivr.net/npm/counterapi/dist/counter.browser.min.js"></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', async () => {
+    // 1. Apuntamos al ID que ya tienes en el footer
+    const el = document.getElementById('likes-votos');
+    
+    // 2. Conectamos a tu espacio de trabajo (workspace)
+    const counter = new Counter({ workspace: 'atom-craft' });
+    
+    // 3. ENLAZAMOS CON EL CONTADOR DE TU PANEL
+    const COUNTER = 'likes_votos'; // <-- ¡Exactamente igual que en tu imagen!
+    const KEY = 'likes_votos:last';
+    const HOUR = 60*60*1000; // 1 hora de espera por usuario
+
+    // Suma solo si pasó 1 hora desde el último "like/visita" en este navegador
+    const last = Number(localStorage.getItem(KEY) || 0);
+    if (Date.now() - last > HOUR) {
+      try { await counter.up(COUNTER); localStorage.setItem(KEY, String(Date.now())); } catch {}
+    }
+
+    // Muestra el número total (Up Count)
+    try {
+      const s = await counter.stats(COUNTER);
+      el.textContent = (s?.data?.up_count ?? 0).toLocaleString('es-ES');
+    } catch {
+      // Respaldo por si falla stats
+      try {
+        const r = await counter.get(COUNTER);
+        el.textContent = (r?.data?.value ?? r?.value ?? 0).toLocaleString('es-ES');
+      } catch { el.textContent = '0'; }
+    }
+
+    // Pequeño refresco para la consistencia eventual de la API
+    setTimeout(async () => {
+      try {
+        const s2 = await counter.stats(COUNTER);
+        el.textContent = (s2?.data?.up_count ?? 0).toLocaleString('es-ES');
+      } catch {}
+    }, 2000);
+  });
+  </script>
+
+    
+
     <footer class="footer-visitas">
       Visitas: <strong id="likes-votos">...</strong>
     </footer>
