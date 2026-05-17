@@ -137,6 +137,50 @@
     text-overflow: ellipsis;
   }
   .ac-sub { line-height: 1; white-space: nowrap; }
+
+
+
+/* ========== AJUSTES PARA CELULARES (DISEÑO RESPONSIVO) ========== */
+  @media (max-width: 600px) {
+    /* Cambiamos la cuadrícula para que los elementos se acomoden en dos filas */
+    .ac-item {
+      grid-template-columns: 35px 1fr;
+      gap: 8px;
+      padding: 12px 10px;
+    }
+
+    /* Ocultamos "Total votos" para ahorrar espacio valioso en la pantalla */
+    .ac-sub {
+      display: none;
+    }
+
+    /* Reducimos ligeramente el espacio del avatar */
+    .ac-main {
+      gap: 10px;
+    }
+
+    /* Pasamos la barra y el puntaje a la fila de abajo */
+    .ac-right {
+      grid-column: 2; /* Para que se alinee debajo del nombre y no de la medalla */
+      width: 100%;
+      justify-content: flex-start;
+      margin-top: 4px;
+    }
+
+    /* Hacemos la barra elástica para que se adapte a cualquier tamaño de celular */
+    .ac-bar-wrap {
+      width: auto;
+      flex: 1; 
+      margin-right: 12px;
+    }
+
+    /* Ajustamos el tamaño de la fuente para que no se vea tan gigante */
+    .ac-rank { font-size: 0.9rem; }
+    .ac-name { font-size: 0.95rem; }
+    .ac-points { width: auto; font-size: 0.9rem; }
+  }
+
+    
 </style>
 
 <script>
