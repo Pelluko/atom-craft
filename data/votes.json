@@ -2,6 +2,17 @@
   "historial": [
 
 
+    {
+      "mes": "Junio 2026",
+      "players": [
+        { "name": "V3rgilDmc3", "votos": 94 },
+        { "name": "fedeterre", "votos": 43 },
+        { "name": "Pelluk0", "votos": 23 },
+        { "name": "MissHidra", "votos": 7 },
+        { "name": "jumper", "votos": 3 }
+      ]
+    },
+    
 
     {
       "mes": "Mayo 2026",
@@ -14,7 +25,6 @@
       ]
     },
 
-
     
     {
       "mes": "Abril 2026",
@@ -26,8 +36,6 @@
         { "name": "jujula", "votos": 6 }
       ]
     },
-
-    
 
     
     {
