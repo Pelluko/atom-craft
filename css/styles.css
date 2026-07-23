@@ -1,7 +1,7 @@
 /* Fondo con imagen y filtro oscuro solo en el fondo */
 body {
     font-family: Arial, sans-serif;
-    background: url('https://raw.githubusercontent.com/Pelluko/atom-craft/main/p01KGj0.png') 
+    background: url('https://raw.githubusercontent.com/Pelluko/atom-craft/main/img/p01KGj0.webp')
                 no-repeat center center fixed;
     background-size: cover;
     color: white;
