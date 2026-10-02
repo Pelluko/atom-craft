@@ -1,7 +1,20 @@
 {
   "historial": [
+
     
-        {
+    {
+      "mes": "Septiembre 2026",
+      "players": [
+        { "name": "V3rgilDmc3", "votos": 6 },
+        { "name": "ArepaCraft", "votos": 6 },
+        { "name": "DemonKneus", "votos": 6 },
+        { "name": "Ferroncho", "votos": 5 },
+        { "name": "Pelluk0", "votos": 5 }
+      ]
+    },
+
+    
+    {
       "mes": "Agosto 2026",
       "players": [
         { "name": "ArepaCraft", "votos": 120 },
