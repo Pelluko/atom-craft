@@ -1,7 +1,7 @@
 // ===== ESTADO DEL SERVIDOR Y JUGADORES (Unificado y Corregido) =====
 async function obtenerEstadoYJugadores() {
   // Consultamos la API de Java que contiene toda la info (info.clean y players.list)
-  const url = "https://api.mcsrvstat.us/2/atomcraft.papu.host";
+  const url = "https://api.mcsrvstat.us/2/mc.papu.host";
 
   try {
     const respuesta = await fetch(url);
@@ -98,7 +98,7 @@ async function obtenerEstadoYJugadores() {
 
 // ===== MOTD GLOBAL =====
 async function obtenerMotd() {
-  const url = "https://api.mcstatus.io/v2/status/java/mc.papu.host:20120";
+  const url = "https://api.mcstatus.io/v2/status/java/mc.papu.host:20020";
   const motdEl = document.getElementById("motd-html");
   if (!motdEl) return;
 
