@@ -98,7 +98,7 @@ async function obtenerEstadoYJugadores() {
 
 // ===== MOTD GLOBAL =====
 async function obtenerMotd() {
-  const url = "https://api.mcstatus.io/v2/status/java/atomcraft.papu.host:20020";
+  const url = "https://api.mcstatus.io/v2/status/java/atomcraft.papu.host:20120";
   const motdEl = document.getElementById("motd-html");
   if (!motdEl) return;
 
