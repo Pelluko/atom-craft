@@ -1,291 +1,67 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tienda VIP - AtomCraft</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Página no disponible - Atom-Craft</title>
+  
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link href="https://fonts.cdnfonts.com/css/minecraftia" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0; padding: 0;
+      font-family: 'Minecraftia', Arial, sans-serif;
+      /* Aquí conectamos tu nueva imagen de fondo */
+      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                  url('img/cierre-pag.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff; display: flex; flex-direction: column;
+      min-height: 100vh; box-sizing: border-box;
+    }
+    nav { background: rgba(0, 0, 0, 0.5); padding: 15px; text-align: center; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+    nav a { color: #00ff00; text-decoration: none; font-weight: bold; margin: 0 10px; }
+    nav a.disabled { color: #888; pointer-events: none; text-decoration: line-through; }
+    .logo-container { display: flex; justify-content: center; align-items: center; margin-top: 30px; margin-bottom: 20px; }
+    .logo { width: 50%; max-width: 500px; min-width: 300px; }
+    .unavailable-container { flex: 1; display: flex; justify-content: center; align-items: center; padding: 20px; }
+    .minecraft-box { background: #2e2e2e; border: 6px solid #1a1a1a; box-shadow: inset -6px -6px 0px #121212, inset 6px 6px 0px #5c5c5c; max-width: 600px; width: 100%; padding: 30px 20px; border-radius: 4px; text-align: center; }
+    .minecraft-box h1 { color: #ff2222; text-shadow: 3px 3px 0px #3f0000; font-size: 1.8rem; margin: 0 0 15px 0; text-transform: uppercase; letter-spacing: 1px; }
+    .minecraft-box p { color: #e0e0e0; font-size: 1rem; line-height: 1.6; margin: 0 0 25px 0; text-shadow: 2px 2px 0px #000; }
+    .mc-btn { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; background: #4a4a4a; color: #fff; font-size: 0.95rem; padding: 12px 24px; border: 4px solid #000; box-shadow: inset -4px -4px 0px #2e2e2e, inset 4px 4px 0px #8b8b8b; cursor: pointer; text-transform: uppercase; transition: all 0.1s ease; font-family: 'Minecraftia', sans-serif; }
+    .mc-btn:hover { background: #3a5c18; box-shadow: inset -4px -4px 0px #1e3a00, inset 4px 4px 0px #638e32; }
+    .mc-btn:active { transform: scale(0.95); }
+    .mc-btn-icon { font-size: 1.2rem; margin-right: 10px; }
+    @media (max-width: 600px) { .logo { width: 85%; } .minecraft-box { padding: 25px 15px; } .minecraft-box h1 { font-size: 1.4rem; } .minecraft-box p { font-size: 0.85rem; } .mc-btn { font-size: 0.85rem; padding: 10px 18px; } }
+  </style>
 </head>
 <body>
-        <nav>
-        <a href="index.html">Atom</a> |
-        <a href="vip.html">Vip</a> |
-        <a href="servidor.html">Status</a> |
-        <a href="like.html">Likes </a>
-    </nav>
 
-    <!-- Imagen como título -->
-    <div class="logo-container">
-        <img src="img/Logo-Principal.png" alt="Atom-Craft Logo" class="logo">
+  <!-- Barra de navegación con "Vip" desactivado -->
+  <nav>
+    <a href="index.html">Atom</a> |
+    <a href="#" class="disabled">Vip</a> |
+    <a href="servidor.html">Status</a> |
+    <a href="like.html">Likes</a>
+  </nav>
+
+  <div class="logo-container">
+    <img src="img/Logo-Principal.png" alt="Atom-Craft Logo" class="logo" />
+  </div>
+
+  <div class="unavailable-container">
+    <div class="minecraft-box">
+      <h1>🚫 PÁGINA NO DISPONIBLE 🚫</h1>
+      <p>
+        Esta sección del sitio ha sido cerrada temporalmente.<br>
+        Disculpa las molestias, aventurero/a.
+      </p>
+      <a href="index.html" class="mc-btn">
+        <span class="mc-btn-icon">↩</span> Volver al Inicio
+      </a>
     </div>
+  </div>
 
-        <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: url('img/p01KGj0.webp') no-repeat center center fixed; /* LOCAL */
-            background-size: cover;
-            color: white;
-            text-align: center;
-            padding: 20px;
-        }
-
-        /* Contenedor del logo */
-        .logo-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            margin-top: 20px;
-            margin-bottom: 30px; /* Más espacio debajo del logo */
-        }
-
-        /* Imagen del logo */
-        .logo {
-            width: 50%;
-            max-width: 500px;
-            min-width: 300px;
-        }
-
-        /* Ajustes específicos para pantallas grandes */
-        @media (min-width: 1024px) {
-            .logo {
-                width: 40%;
-                max-width: 600px;
-            }
-        }
-
-        /* Ajustes para pantallas pequeñas */
-        @media (max-width: 600px) {
-            .logo {
-                width: 80%;
-                max-width: 400px;
-            }
-        }
-
-
-        a {
-            color: #00ff00;
-            text-decoration: none;
-            font-weight: bold;
-        }
-    </style>
-
-
-<!-- Bloque Promo vip -->
-
-    
-
-<!-- Bloque Promo vip -->
-
-    
-    <h1>🛒 Tienda VIP - AtomCraft</h1>
-
-    
-<div class="vip-info">
-    <h2>💎 ¡Apoya al Servidor y Obtén Beneficios Exclusivos! 💎</h2>
-    <p>
-        Todo aporte será para que el servidor nos dure mucho tiempo más. 
-        El dinero será usado para comprar <strong>plugins</strong>, <strong>mapas</strong> 
-        y lo más importante, <strong>juntar para pagar un año más de hosting</strong>.
-    </p>
-    <p>
-        📢 <strong>IMPORTANTE:</strong> Estamos comenzando con todo, los rangos y beneficios pueden 
-        ser modificados, ¡así que mantente atento a las actualizaciones! 🚀
-    </p>
-    <p class="vip-benefits">
-        🎖 <strong>Todos los VIP incluyen:</strong> /homes - /colors - /tpahere - /skin - /craft - Tambien no tienes que esperar los 5 segundos para los tp´s 🎖
-    </p>
-</div>
-
-
-
-    <h2>🎖 Rangos VIP</h2>
-
-    
-    <div class="vip-container">
-        <div class="vip-card">
-            <h3>🪵 Vip-Coal</h3>
-            <p><strong>Duración:</strong> 30 días</p>
-            <p><strong>Precio:</strong> <span class="price">$3.000.- CLP</span> ($3.50 USD)</p>
-            <ul>
-                <li>🌎 Comandos exclusivos</li>
-                <li>💾 5 /sethome</li>
-                <li>📔 /point - /hat</li>
-                <li>💰 $6.000 de money</li>
-                <li>🏘️ 10 /t claim Para expandir tu town</li>
-                <li>🗳️ 100 protecciones cofres /climits</li>
-                <li>🗝️ 2 Mystery Key Premium</li>
-            </ul>
-            <a href="https://www.paypal.com/ncp/payment/CZCSAQMX7TVH6" target="_blank" class="buy-button">Comprar Ahora</a>
-        </div>
-    
-        <div class="vip-card">
-            <h3>🪨 Vip-Iron</h3>
-            <p><strong>Duración:</strong> 30 días</p>
-            <p><strong>Precio:</strong> <span class="price">$5.000.- CLP</span> ($5.50 USD)</p>
-            <ul>
-                <li>🌎 + Comandos del vip anterior</li>
-                <li>💾 8 /sethome</li>
-                <li>📔 /head - /back - /ride</li>
-                <li>💰 $10.000 de money</li>
-                <li>🏘️ 15 /t claim Para expandir tu town</li>
-                <li>🗳️ 120 protecciones cofres /climits</li>
-                <li>🗝️ 5 Mystery Key Premium</li>
-            </ul>
-            <a href="https://www.paypal.com/ncp/payment/73NGXW82VQ9FG" target="_blank" class="buy-button">Comprar Ahora</a>
-        </div>
-
-        <div class="vip-card">
-            <h3>🌕 Vip-Gold</h3>
-            <p><strong>Duración:</strong> 30 días</p>
-            <p><strong>Precio:</strong> <span class="price">$8.000.- CLP</span> ($8.50 USD)</p>
-            <ul>
-                <li>🌎 + Comandos del vip anterior</li>
-                <li>💾 10 /sethome</li>
-                <li>📔 /ender - /feed</li>
-                <li>💰 $16.000 de money</li>
-                <li>🏘️ 20 /t claim Para expandir tu town</li>
-                <li>🗳️ 140 protecciones cofres /climits</li>
-                <li>🗝️ 8 Mystery Key Premium</li>
-            </ul>
-            <a href="https://www.paypal.com/ncp/payment/BRMA4T8MDSRAS" target="_blank" class="buy-button">Comprar Ahora</a>
-        </div>
-
-        <div class="vip-card">
-            <h3>💚 Vip-Emerald</h3>
-            <p><strong>Duración:</strong> 30 días</p>
-            <p><strong>Precio:</strong> <span class="price">$10.000.- CLP</span> ($10.50 USD)</p>
-            <ul>
-                <li>🌎 + Comandos del vip anterior</li>
-                <li>💾 15 /sethome</li>
-                <li>✈️ Habilidad de volar /fly</li>
-                <li>💰 $20.000 de money</li>
-                <li>🏘️ 30 /t claim Para expandir tu town</li>
-                <li>🗳️ 160 protecciones cofres /climits</li>
-                <li>🗝️ 10 Mystery Key Premium</li>
-            </ul>
-            <a href="https://www.paypal.com/ncp/payment/S5YLMMB2UJE6W" target="_blank" class="buy-button">Comprar Ahora</a>
-        </div>
-
-
-
-        <div class="vip-card">
-            <h3>💎 Vip-Diamond</h3>
-            <p><strong>Duración:</strong> 40 días</p>
-            <p><strong>Precio:</strong> <span class="price">$15.000.- CLP</span> ($15.50 USD)</p>
-            <ul>
-                <li>🌎 + Comandos del vip anterior</li>
-                <li>💾 20 /sethome</li>
-                <li>📔 /heal - Crear Ascensores</li>
-                <li>📔 /repair con costo 1k money</li>
-                <li>💰 $30.000 de money</li>
-                <li>🏘️ 50 /t claim Para expandir tu town</li>
-                <li>🗳️ 180 protecciones cofres /climits</li>
-                <li>🗝️ 15 Mystery Key Premium</li>
-            </ul>
-            <a href="https://www.paypal.com/ncp/payment/98C74QTV2FGA6" target="_blank" class="buy-button">Comprar Ahora</a>
-        </div>
-        
- 
-
-
-
-
-        <div class="vip-card key-premium">
-            <h3>🔑 1 Key Premium 🔑</h3>
-            <p><strong>Precio:</strong> <span class="price">$1.000.- CLP</span> ($1.50 USD)</p>
-            <ul>
-                <li>A mil cada una</li>
-            <a href="https://www.paypal.com/ncp/payment/LFK76UZBDTB76" target="_blank" class="buy-button">Comprar Ahora</a>
-                <br><br> <!-- Agrega un salto de línea sin necesidad de una lista -->
-                <br><br>
-            <h3>🏘️ 10 Claims 🏘️</h3>
-            <p><strong>Precio:</strong> <span class="price">$1.000.- CLP</span> ($1.50 USD)</p>
-            <ul>
-                <li>A mil cada 10 claim</li>
-            </ul>
-            <a href="https://www.paypal.com/ncp/payment/GX3YSDU2H9P5W" target="_blank" class="buy-button">Comprar Ahora</a>
-        </div>
-
-
-
-
-        
-
-
-        
-    </div>
-
-    <h2>💰 Otras Cuentas</h2>
-
-    
-<div class="payment-info">
-    <h2>💳 Métodos de Pago</h2>
-    <p>Puedes realizar el pago mediante <strong>PayPal</strong> o <strong>transferencia bancaria</strong>.</p>
-
-    <div class="payment-method">
-        <p>📧 <strong>Cuenta PayPal:</strong> <span class="highlight">peter21_@hotmail.com</span></p>
-    </div>
-
-    <div class="payment-method">
-        <p>🏦 <strong>Banco:</strong> Chile - Cuenta Vista</p>
-        <p>🔢 <strong>N°:</strong> 000107721309</p>
-        <p>🆔 <strong>RUT:</strong> 15.948.943-4</p>
-        <p>👤 <strong>Nombre:</strong> Pedro Guzmán</p>
-    </div>
-
-    <div class="payment-method">
-        <p>🪙 <strong>BTC Bitcoin:</strong> <span class="highlight">1KhkeHdkgaQhV6gmQfABjptoAVCSx8h1bh</span></p>
-    </div>
-
-    <p class="payment-notice">📩 Envía el comprobante con tu nombre de usuario (nick) a <strong>peter21_@hotmail.com</strong> o abriendo un ticket en discord</p>
-</div>
-
-
-  <!-- Contador de visitas -->
-Visitas: <strong id="visitas-vip">...</strong>
-
-<script src="https://cdn.jsdelivr.net/npm/counterapi/dist/counter.browser.min.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', async () => {
-  const el = document.getElementById('visitas-vip');
-  const counter = new Counter({ workspace: 'atom-craft' });
-  const COUNTER = 'vistas_vip';      // ← tu slug VIP
-  const KEY = 'vip:last';            // 1 vez por HORA en este navegador
-  const HOUR = 60 * 60 * 1000;
-
-  // Sumar solo si pasó 1 hora desde la última vez en ESTE navegador
-  const last = Number(localStorage.getItem(KEY) || 0);
-  if (Date.now() - last > HOUR) {
-    try { await counter.up(COUNTER); localStorage.setItem(KEY, String(Date.now())); } catch {}
-  }
-
-  // Muestra el mismo número que ves en el panel (Up Count)
-  try {
-    const s = await counter.stats(COUNTER);
-    el.textContent = (s?.data?.up_count ?? 0).toLocaleString('es-ES');
-  } catch {
-    try {
-      const r = await counter.get(COUNTER);
-      el.textContent = (r?.data?.value ?? r?.value ?? 0).toLocaleString('es-ES');
-    } catch { el.textContent = '0'; }
-  }
-
-  // Pequeño refresco por consistencia eventual
-  setTimeout(async () => {
-    try {
-      const s2 = await counter.stats(COUNTER);
-      el.textContent = (s2?.data?.up_count ?? 0).toLocaleString('es-ES');
-    } catch {}
-  }, 2000);
-});
-</script>
-
-
-
-
-    
-        
 </body>
 </html>
